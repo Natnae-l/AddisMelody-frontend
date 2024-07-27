@@ -3,8 +3,11 @@ import styled from "styled-components";
 const WelcomeContainer = styled.div`
   display: flex;
   align-items: center;
-  height: 65vh;
+  height: 70vh;
   overflow-y: hidden;
+  @media (max-width: "700px") {
+    height: 100vh !important;
+  }
 `;
 
 const Div = styled.div<{

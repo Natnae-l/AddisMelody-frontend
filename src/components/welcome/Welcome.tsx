@@ -8,7 +8,7 @@ function Welcome() {
   return (
     <WelcomeContainer>
       <Div $backgroundColor="#6e6b69c1" $breakPoint={700}>
-        <img src={musicImg} width="120px" />
+        {/* <img src={musicImg} width="120px" /> */}
         <Paragraph $fontWeight={300} $fontSize="1.6rem">
           Find the right sounds for your next hit
         </Paragraph>

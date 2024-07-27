@@ -1,21 +1,23 @@
 import styled from "styled-components";
 
-const Paragraph = styled.p<{ $fontWeight?: number; $fontSize?: string }>`
+const Paragraph = styled.p<{
+  $fontWeight?: number;
+  $fontSize?: string;
+  $color?: string;
+}>`
   font-size: ${(props) => props.$fontSize || "1.1rem"};
   text-align: center;
-  color: #000000;
+  color: ${(props) => props.$color || "black"};
   font-weight: ${(props) => props.$fontWeight || 100};
   max-width: 40ch;
 `;
 
 const Input = styled.input<{ $inputColor?: string }>`
-  border: 1.4px solid #efebeb52;
   padding: 0.5em 0.8em;
   margin: 0.5em;
   color: ${(props) => props.$inputColor || "white"};
   background-color: #fcfafa;
-  border: 1px solid black;
-  /* border: none; */
+  border: none;
   border-radius: 8px;
   height: 33px;
   width: 90%;
@@ -27,8 +29,9 @@ const Input = styled.input<{ $inputColor?: string }>`
     font-size: 0.8rem;
   }
   &:focus {
+    outline: 1px solid;
     border: 1px solid transparent;
-    outline: none;
+    /* outline: none; */
   }
 `;
 
@@ -37,6 +40,9 @@ const A = styled.a`
   text-decoration: none !important;
   color: #3f3f3f;
   padding-block: 1rem;
+  &:hover {
+    text-decoration: underline !important;
+  }
 `;
 
 const Button = styled.button`
