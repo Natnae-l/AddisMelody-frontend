@@ -36,4 +36,15 @@ const Container = styled.div<{ $gap?: string }>`
   gap: ${(props) => props.$gap || "20px"};
 `;
 
-export { WelcomeContainer, Div, Container };
+const HorizontalContainer = styled.div<{
+  $gap?: string;
+  $justContent?: string;
+}>`
+  display: flex;
+  gap: ${(props) => props.$gap || "20px"};
+  justify-content: ${(props) => props.$justContent || "space-between"};
+  width: 100%;
+  align-items: center;
+`;
+
+export { WelcomeContainer, Div, Container, HorizontalContainer };

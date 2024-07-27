@@ -9,7 +9,8 @@ import Welcome from "./components/welcome/Welcome.tsx";
 import Login from "./components/welcome/Login.tsx";
 import Register from "./components/welcome/Register.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
-import Nav from "./components/navigation/Nav.tsx";
+import Home from "./components/home/Home.tsx";
+import Browse from "./components/home/Browse.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,7 +20,9 @@ const router = createBrowserRouter(
         <Route path="register" element={<Register />} />
       </Route>
       <Route path="dashboard" element={<ProtectedRoute />}>
-        <Route index path="" element={<Nav />} />
+        <Route path="" element={<Home />}>
+          <Route index path="" element={<Browse />} />
+        </Route>
       </Route>
       <Route path="*" element={<div>Requested page unknown</div>} />
     </Route>
