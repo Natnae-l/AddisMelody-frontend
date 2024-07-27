@@ -14,6 +14,7 @@ const StyledNav = styled.nav<{ $padding?: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   padding: ${(props) => props.$padding || "4rem 10px"};
   @media (max-width: 700px) {
     display: none !important;
@@ -24,6 +25,7 @@ const Ul = styled.ul<{ $gap?: string }>`
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+
   gap: ${(props) => props.$gap || "21px"};
 `;
 
@@ -32,6 +34,9 @@ const Li = styled.li<{ $color?: string; $fontSize?: string }>`
   list-style: none;
   font-size: ${(props) => props.$fontSize || "1.2rem"};
   text-decoration: none !important;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const H2 = styled.h2<{ $color?: string; $fontSize?: string }>`

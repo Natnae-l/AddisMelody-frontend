@@ -33,9 +33,9 @@ const loggedInSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     },
-    logOut: (state: Authenticated, action) => {
+    logOut: (state: Authenticated) => {
       state.isLoading = false;
-      state.error = action.payload.message;
+      state.authenticated = false;
     },
   },
 });
