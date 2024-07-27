@@ -13,6 +13,10 @@ const GlobalStyle = createGlobalStyle`
     align-content: center;
     height: 100vh;
     background-color: #eeeeee;
+
+  }
+  .hover:hover {
+    text-decoration: underline !important;
   }
 `;
 

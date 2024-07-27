@@ -1,5 +1,5 @@
-import { Form, Link } from "react-router-dom";
-import { A, Button, Input, Paragraph } from "../../styled /Text";
+import { Form, Link, Navigate } from "react-router-dom";
+import { Button, Input, Paragraph } from "../../styled /Text";
 import { Container, Div } from "../../styled /WelcomeStyled";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +32,9 @@ function Login() {
       setWarn(true);
     }
   };
+  if (authState.authenticated) {
+    return <Navigate to="/dashboard" replace={true} />;
+  }
   return (
     <Div $gap=".1rem">
       <Paragraph $fontWeight={400} $fontSize="2rem">
@@ -43,12 +46,12 @@ function Login() {
 
       <Form onSubmit={(e) => handleSubmit(e)}>
         {warn && (
-          <Paragraph $fontSize=".9rem" $fontWeight={200} $color="red">
+          <Paragraph $fontSize=".9rem" $fontWeight={400} $color="red">
             Invalid input, please check your inputs
           </Paragraph>
         )}
         {authState.error != "" ? (
-          <Paragraph $fontSize=".9rem" $fontWeight={200} $color="red">
+          <Paragraph $fontSize=".9rem" $fontWeight={400} $color="red">
             {authState.error}
           </Paragraph>
         ) : null}
@@ -87,9 +90,11 @@ function Login() {
             style={{
               textDecoration: "none",
               paddingBlock: "1rem",
+              color: "#4e504f",
             }}
+            className="hover"
           >
-            <A> Register new account</A>
+            Register new account
           </Link>
         </Container>
       </Form>

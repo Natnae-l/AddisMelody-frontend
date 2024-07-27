@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { A, Button, Input, Paragraph } from "../../styled /Text";
 import { Container, Div } from "../../styled /WelcomeStyled";
 import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { create } from "../../features/createAccountSlice";
+import { RootState } from "../../app/store";
+import { ThreeDot } from "react-loading-indicators";
 
 interface FormData {
   username: string | undefined;
@@ -14,6 +18,9 @@ function Register() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const confirmPasswordRef = useRef<HTMLInputElement>(null);
   const [warn, setWarn] = useState(false);
+
+  let createState = useSelector((state: RootState) => state.createAccount);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,6 +38,7 @@ function Register() {
       }
 
       setWarn(false);
+      dispatch(create({ username, password }));
     } else {
       setWarn(true);
     }
@@ -45,6 +53,17 @@ function Register() {
       </Paragraph>
 
       <form onSubmit={(e) => handleSubmit(e)}>
+        {createState && (
+          <div>
+            {" "}
+            <Paragraph $fontSize=".9rem" $fontWeight={400} $color="green">
+              {createState?.message}
+            </Paragraph>
+            <Paragraph $fontSize=".9rem" $fontWeight={400} $color="red">
+              {createState.error}
+            </Paragraph>
+          </div>
+        )}
         {warn && (
           <Paragraph $fontSize=".9rem" $fontWeight={200} $color="red">
             Invalid input, please check your inputs
@@ -83,7 +102,14 @@ function Register() {
             />
           </div>
           <div>
-            <Button>Register</Button>
+            <Button>
+              {" "}
+              {createState.isLoading ? (
+                <ThreeDot variant="pulsate" color="#4e504f" size="small" />
+              ) : (
+                "Register"
+              )}
+            </Button>
             <Link
               to="/"
               style={{
