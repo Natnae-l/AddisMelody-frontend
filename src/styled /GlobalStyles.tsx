@@ -6,6 +6,14 @@ const GlobalStyle = createGlobalStyle`
     padding: 0 ;
     font-family: "Poppins", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    height: 100vh;
+    background-color: #eeeeee;
+  }
 `;
 
 export default GlobalStyle;

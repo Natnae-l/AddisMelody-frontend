@@ -1,28 +1,30 @@
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import { A, Button, Input, Paragraph } from "../../styled /Text";
-import { Div } from "../../styled /WelcomeStyled";
+import { Container, Div } from "../../styled /WelcomeStyled";
 
 function Login() {
   return (
-    <Div>
+    <Div $gap=".1rem">
       <Paragraph $fontWeight={400} $fontSize="2rem">
         Welcome Back
       </Paragraph>
       <Paragraph $fontSize="1.15rem" $fontWeight={200}>
         Please sign in or register for new account
       </Paragraph>
-      <form action="">
-        <Div $backgroundColor="transparent">
+
+      <Form>
+        {/* <Div $backgroundColor="transparent"> */}
+        <Container $gap="7px">
           <div>
             <label htmlFor="" style={{ paddingBottom: "4px" }}>
-              Username:
+              Username
             </label>
             <Input $inputColor="black" placeholder="please enter username" />
           </div>
           <div>
             {" "}
             <label htmlFor="" style={{ color: "black" }}>
-              Password:
+              Password
             </label>
             <Input $inputColor="black" placeholder="*******" />
           </div>
@@ -36,8 +38,8 @@ function Login() {
           >
             <A> Register new account</A>
           </Link>
-        </Div>
-      </form>
+        </Container>
+      </Form>
     </Div>
   );
 }

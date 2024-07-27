@@ -2,9 +2,8 @@ import styled from "styled-components";
 
 const WelcomeContainer = styled.div`
   display: flex;
-  width: 100%;
   align-items: center;
-  height: 100vh;
+  height: 65vh;
   overflow-y: hidden;
 `;
 
@@ -14,7 +13,7 @@ const Div = styled.div<{
   $breakPoint?: number;
 }>`
   display: flex;
-  padding: 10px 5%;
+  padding: 20px 5%;
   flex-direction: column;
   gap: ${(props) => props.$gap || "10px"};
   flex: 1;
@@ -22,9 +21,16 @@ const Div = styled.div<{
   height: 100%;
   justify-content: center;
   align-items: center;
+
   @media (max-width: ${(props) => props.$breakPoint || 0}px) {
     display: none;
   }
 `;
 
-export { WelcomeContainer, Div };
+const Container = styled.div<{ $gap?: string }>`
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.$gap || "20px"};
+`;
+
+export { WelcomeContainer, Div, Container };

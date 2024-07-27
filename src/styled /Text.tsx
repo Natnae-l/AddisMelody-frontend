@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Paragraph = styled.p<{ $fontWeight?: number; $fontSize?: string }>`
-  font-size: ${(props) => props.$fontSize || "1.4rem"};
+  font-size: ${(props) => props.$fontSize || "1.1rem"};
   text-align: center;
   color: #000000;
   font-weight: ${(props) => props.$fontWeight || 100};
@@ -9,18 +9,27 @@ const Paragraph = styled.p<{ $fontWeight?: number; $fontSize?: string }>`
 `;
 
 const Input = styled.input<{ $inputColor?: string }>`
+  border: 1.4px solid #efebeb52;
   padding: 0.5em 0.8em;
   margin: 0.5em;
   color: ${(props) => props.$inputColor || "white"};
   background-color: #fcfafa;
   border: 1px solid black;
-  border: none;
+  /* border: none; */
   border-radius: 8px;
-  height: 30px;
-  width: 100%;
-  font-size: 1.02rem;
+  height: 33px;
+  width: 90%;
+  font-size: 0.9rem;
   align-self: flex-start;
   margin: 6px 0;
+  &::placeholder {
+    color: #575757;
+    font-size: 0.8rem;
+  }
+  &:focus {
+    border: 1px solid transparent;
+    outline: none;
+  }
 `;
 
 const A = styled.a`
