@@ -1,14 +1,14 @@
 import { Paragraph } from "../../styled /Text";
 import { Div, WelcomeContainer } from "../../styled /WelcomeStyled";
-import musicImg from "../../assets/music (1).png";
-// import musicImg from "../../assets/musical-note.png";
+// import musicImg from "../../assets/music (1).png";
+import musicImg from "../../assets/musical-note.png";
 import { Outlet } from "react-router-dom";
 
 function Welcome() {
   return (
     <WelcomeContainer>
       <Div $backgroundColor="#6e6b69c1" $breakPoint={700}>
-        {/* <img src={musicImg} width="120px" /> */}
+        <img src={musicImg} width="100px" />
         <Paragraph $fontWeight={300} $fontSize="1.6rem">
           Find the right sounds for your next hit
         </Paragraph>

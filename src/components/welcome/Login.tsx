@@ -2,15 +2,18 @@ import { Form, Link } from "react-router-dom";
 import { A, Button, Input, Paragraph } from "../../styled /Text";
 import { Container, Div } from "../../styled /WelcomeStyled";
 import { useRef, useState } from "react";
-
-interface LoginData {
-  username: string | undefined;
-  password: string | undefined;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { LoginData, logIn } from "../../features/authenticatedSlice";
+import { ThreeDot } from "react-loading-indicators";
+import { RootState } from "../../app/store";
 
 function Login() {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const authState = useSelector((state: RootState) => state.auth);
+
+  const dispatch = useDispatch();
 
   const [warn, setWarn] = useState(false);
 
@@ -24,6 +27,7 @@ function Login() {
 
     if (username && password) {
       setWarn(false);
+      dispatch(logIn({ username, password }));
     } else {
       setWarn(true);
     }
@@ -43,6 +47,11 @@ function Login() {
             Invalid input, please check your inputs
           </Paragraph>
         )}
+        {authState.error != "" ? (
+          <Paragraph $fontSize=".9rem" $fontWeight={200} $color="red">
+            {authState.error}
+          </Paragraph>
+        ) : null}
         <Container $gap="7px">
           <div>
             <label htmlFor="" style={{ paddingBottom: "4px" }}>
@@ -65,7 +74,14 @@ function Login() {
               ref={passwordRef}
             />
           </div>
-          <Button>Log In</Button>
+          <Button>
+            {" "}
+            {authState.isLoading ? (
+              <ThreeDot variant="pulsate" color="#4e504f" size="small" />
+            ) : (
+              "Log In"
+            )}
+          </Button>
           <Link
             to="/register"
             style={{
