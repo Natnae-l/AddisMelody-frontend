@@ -6,7 +6,7 @@ import Banner from "../../assets/banner.png";
 
 function Music() {
   return (
-    <MusicContainer className="pointer">
+    <MusicContainer className="pointer box-hover">
       <HorizontalContainer $width="fit-content">
         <img src={Banner} alt="" width="32px" height="32px" />
         <Paragraph $fontWeight={600} $fontSize="1rem">
@@ -15,7 +15,13 @@ function Music() {
       </HorizontalContainer>
       <Paragraph $fontWeight={300}>halsey</Paragraph>
       <Paragraph $fontWeight={200}>03:30</Paragraph>
-      <img src={Plus} width="14px" height="14px" alt="" />
+      <img
+        src={Plus}
+        width="14px"
+        height="14px"
+        alt="plus sign"
+        title="add to favourite"
+      />
     </MusicContainer>
   );
 }

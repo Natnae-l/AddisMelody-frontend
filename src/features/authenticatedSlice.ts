@@ -21,7 +21,7 @@ const loggedInSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logIn: (state: Authenticated, action: PayloadAction<LoginData>) => {
+    logIn: (state: Authenticated, _action: PayloadAction<LoginData>) => {
       state.isLoading = true;
     },
     loggedIn: (state: Authenticated) => {

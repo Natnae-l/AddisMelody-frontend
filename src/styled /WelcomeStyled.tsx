@@ -61,4 +61,29 @@ const HorizontalContainer = styled.div<{
   padding: ${(props) => props.$padding || "0"};
 `;
 
-export { WelcomeContainer, Div, Container, HorizontalContainer, MainContainer };
+const DisplayGrid = styled.div<{
+  $gap?: string;
+  $justContent?: string;
+  $padding?: string;
+  $width?: string;
+}>`
+  display: flex;
+  gap: 27px;
+  flex-wrap: wrap;
+  width: ${(props) => props.$width || "100%"};
+  padding: ${(props) => props.$padding || "0"};
+  max-height: 50vh;
+  overflow-y: scroll;
+  @media (max-width: 900px) {
+    width: 100% !important;
+  }
+`;
+
+export {
+  WelcomeContainer,
+  Div,
+  Container,
+  HorizontalContainer,
+  MainContainer,
+  DisplayGrid,
+};

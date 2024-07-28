@@ -21,6 +21,10 @@ const GlobalStyle = createGlobalStyle`
   .hover:hover {
     text-decoration: underline !important;
   }
+  .box-hover:hover {
+    box-shadow: 1px 1px 2px 1px #e2e1e1;
+    border-radius: 3px;
+  }
 `;
 
 export default GlobalStyle;

@@ -21,7 +21,7 @@ const CreateAccountSlice = createSlice({
   name: "createAccount",
   initialState,
   reducers: {
-    create: (state: CreateAccount, action: PayloadAction<LoginData>) => {
+    create: (state: CreateAccount, _action: PayloadAction<LoginData>) => {
       state.isLoading = true;
       state.message = "";
     },

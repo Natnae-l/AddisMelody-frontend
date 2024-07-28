@@ -1,6 +1,6 @@
 import { MainDiv } from "../../styled /Layout";
 import { Paragraph } from "../../styled /Text";
-import { HorizontalContainer } from "../../styled /WelcomeStyled";
+import { DisplayGrid, HorizontalContainer } from "../../styled /WelcomeStyled";
 
 import Music from "../card/Music";
 
@@ -13,9 +13,20 @@ function Musics() {
           Musics
         </Paragraph>
       </HorizontalContainer>
-      <HorizontalContainer $justContent="flex-start">
+      <DisplayGrid>
         <Music />
-      </HorizontalContainer>
+        <Music />
+        <Music />
+        <Music />
+        <Music />
+        <Music />
+        <Music />
+        <Music />
+        <Music />
+        <Music />
+        <Music />
+        <Music />
+      </DisplayGrid>
     </MainDiv>
   );
 }
