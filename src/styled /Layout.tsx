@@ -7,7 +7,7 @@ const Layout = styled.div`
   background-color: #423e3ede;
 `;
 
-const StyledNav = styled.nav<{ $padding?: string }>`
+const StyledNav = styled.nav<{ $padding?: string; $noneWidth?: string }>`
   flex-grow: 0.115;
   flex-shrink: 0;
   color: #ece9e9;
@@ -16,7 +16,7 @@ const StyledNav = styled.nav<{ $padding?: string }>`
   align-items: center;
   justify-content: space-between;
   padding: ${(props) => props.$padding || "4rem 10px"};
-  @media (max-width: 700px) {
+  @media (max-width: ${(props) => props.$noneWidth || "900px"}) {
     display: none !important;
   }
 `;
@@ -57,7 +57,29 @@ const Main = styled.main`
   @media (max-width: 700px) {
     flex: 1;
     border-radius: 0;
+    height: 100;
   }
 `;
 
-export { Layout, StyledNav, Ul, Li, H2, Main };
+const MainDiv = styled.div<{
+  $gap?: string;
+  $flex?: number;
+  $radius?: string;
+  $max?: string;
+  $fill?: string;
+}>`
+  display: flex;
+  flex-direction: column;
+  gap: ${(props) => props.$gap || "1rem"};
+  flex: ${(props) => props.$flex || "1rem"};
+  border-radius: ${(props) => props.$radius || "0"};
+
+  @media (max-width: ${(props) => props.$max || "0"}) {
+    display: none;
+  }
+  @media (max-width: ${(props) => props.$fill || "0"}) {
+    width: 100vw !important;
+  }
+`;
+
+export { Layout, StyledNav, Ul, Li, H2, Main, MainDiv };

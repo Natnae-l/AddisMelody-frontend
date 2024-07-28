@@ -30,27 +30,35 @@ const Div = styled.div<{
   }
 `;
 
-const Container = styled.div<{ $gap?: string }>`
+const Container = styled.div<{ $gap?: string; $paddInline?: string }>`
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.$gap || "20px"};
+  @media (max-width: 900px) {
+    /* width: 100vw !important; */
+  }
 `;
 
 const MainContainer = styled(Container)`
   flex-direction: row;
   width: 100%;
   height: 100%;
+  padding: ${(props) => props.$paddInline || "0"};
+  box-sizing: border-box;
 `;
 
 const HorizontalContainer = styled.div<{
   $gap?: string;
   $justContent?: string;
+  $padding?: string;
+  $width?: string;
 }>`
   display: flex;
   gap: ${(props) => props.$gap || "20px"};
   justify-content: ${(props) => props.$justContent || "space-between"};
-  width: 100%;
+  width: ${(props) => props.$width || "100%"};
   align-items: center;
+  padding: ${(props) => props.$padding || "0"};
 `;
 
 export { WelcomeContainer, Div, Container, HorizontalContainer, MainContainer };

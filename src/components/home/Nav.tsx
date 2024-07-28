@@ -10,19 +10,16 @@ function Nav() {
       <Ul>
         <H2>Library</H2>
         <Link to="" style={{ textDecoration: "none" }}>
-          <Li>Browse</Li>
+          <Li>Songs</Li>
         </Link>
         <Link to="" style={{ textDecoration: "none" }}>
-          <Li>Songs</Li>
+          <Li>Favourite Songs</Li>
         </Link>
         <Link to="" style={{ textDecoration: "none" }}>
           <Li>Add Song</Li>
         </Link>
         <Link to="" style={{ textDecoration: "none" }}>
           <Li>Statistics</Li>
-        </Link>
-        <Link to="" style={{ textDecoration: "none" }}>
-          <Li>Favourite Songs</Li>
         </Link>
       </Ul>
       <Ul>

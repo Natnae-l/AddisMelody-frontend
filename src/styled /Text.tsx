@@ -59,4 +59,12 @@ const Button = styled.button`
   }
 `;
 
-export { Paragraph, Input, Button, A };
+const RoundImg = styled.img`
+  border-radius: 100%;
+  max-width: 100px;
+  height: 90px;
+  background-color: #494a4a !important;
+  box-shadow: 1px 1px 6px 1px #bbbbbb;
+`;
+
+export { Paragraph, Input, Button, A, RoundImg };

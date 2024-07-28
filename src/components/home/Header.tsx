@@ -12,7 +12,7 @@ function Header() {
   const breadCrumb = location.slice(1).replace("/", " > ");
 
   return (
-    <StyledNav $padding="20px 40px">
+    <StyledNav $padding="20px 40px" $noneWidth="0">
       <HorizontalContainer>
         {" "}
         <HorizontalContainer $justContent="flex-start">
