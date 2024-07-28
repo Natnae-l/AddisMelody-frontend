@@ -36,6 +36,12 @@ const Container = styled.div<{ $gap?: string }>`
   gap: ${(props) => props.$gap || "20px"};
 `;
 
+const MainContainer = styled(Container)`
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+`;
+
 const HorizontalContainer = styled.div<{
   $gap?: string;
   $justContent?: string;
@@ -47,4 +53,4 @@ const HorizontalContainer = styled.div<{
   align-items: center;
 `;
 
-export { WelcomeContainer, Div, Container, HorizontalContainer };
+export { WelcomeContainer, Div, Container, HorizontalContainer, MainContainer };

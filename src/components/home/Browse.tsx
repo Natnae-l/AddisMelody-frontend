@@ -1,5 +1,7 @@
+import { MainContainer } from "../../styled /WelcomeStyled";
+
 function Browse() {
-  // return <div>Browse</div>;
+  return <MainContainer></MainContainer>;
 }
 
 export default Browse;
