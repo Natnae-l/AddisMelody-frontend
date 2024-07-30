@@ -12,13 +12,13 @@ function Nav() {
         <Link to="" style={{ textDecoration: "none" }}>
           <Li>Songs</Li>
         </Link>
-        <Link to="" style={{ textDecoration: "none" }}>
+        <Link to="favourite" style={{ textDecoration: "none" }}>
           <Li>Favourite Songs</Li>
         </Link>
-        <Link to="" style={{ textDecoration: "none" }}>
+        <Link to="add" style={{ textDecoration: "none" }}>
           <Li>Add Song</Li>
         </Link>
-        <Link to="" style={{ textDecoration: "none" }}>
+        <Link to="statistics" style={{ textDecoration: "none" }}>
           <Li>Statistics</Li>
         </Link>
       </Ul>

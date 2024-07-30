@@ -7,6 +7,7 @@ import rootSaga from "../features/saga/rootSaga";
 import createAccountSlice, {
   CreateAccount,
 } from "../features/createAccountSlice";
+import pageSlice from "../features/pageSlice";
 
 export interface RootState {
   auth: Authenticated;
@@ -17,6 +18,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
   reducer: {
+    page: pageSlice,
     auth: authenticatedSlice,
     createAccount: createAccountSlice,
   },

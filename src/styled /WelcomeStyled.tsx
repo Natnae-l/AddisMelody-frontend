@@ -30,10 +30,18 @@ const Div = styled.div<{
   }
 `;
 
-const Container = styled.div<{ $gap?: string; $paddInline?: string }>`
+const Container = styled.div<{
+  $gap?: string;
+  $paddInline?: string;
+  $padding?: string;
+  $height?: string;
+}>`
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.$gap || "20px"};
+  padding: ${(props) => props.$padding || "0"};
+  height: ${(props) => props.$height || "100%"};
+  overflow-y: ${(props) => (props.$height ? "scroll" : "auto")};
   @media (max-width: 900px) {
     /* width: 100vw !important; */
   }
@@ -52,6 +60,7 @@ const HorizontalContainer = styled.div<{
   $justContent?: string;
   $padding?: string;
   $width?: string;
+  $flexWrap?: string;
 }>`
   display: flex;
   gap: ${(props) => props.$gap || "20px"};
@@ -59,6 +68,7 @@ const HorizontalContainer = styled.div<{
   width: ${(props) => props.$width || "100%"};
   align-items: center;
   padding: ${(props) => props.$padding || "0"};
+  flex-wrap: ${(props) => props.$flexWrap || "no-wrap"};
 `;
 
 const DisplayGrid = styled.div<{
@@ -71,9 +81,9 @@ const DisplayGrid = styled.div<{
   gap: 27px;
   flex-wrap: wrap;
   width: ${(props) => props.$width || "100%"};
-  padding: ${(props) => props.$padding || "0"};
+  padding-bottom: 400px !important;
   max-height: 50vh;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   @media (max-width: 900px) {
     width: 100% !important;
   }

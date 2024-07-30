@@ -4,12 +4,15 @@ const Paragraph = styled.p<{
   $fontWeight?: number;
   $fontSize?: string;
   $color?: string;
+  $padding?: string;
+  $align?: string;
 }>`
   font-size: ${(props) => props.$fontSize || "1.1rem"};
-  text-align: center;
+  text-align: ${(props) => props.$align || "center"};
   color: ${(props) => props.$color || "black"};
   font-weight: ${(props) => props.$fontWeight || 100};
   max-width: 40ch;
+  padding: ${(props) => props.$padding || "0"};
 `;
 
 const Input = styled.input<{ $inputColor?: string }>`

@@ -67,12 +67,16 @@ const MainDiv = styled.div<{
   $radius?: string;
   $max?: string;
   $fill?: string;
+  $flexWrap?: string;
 }>`
+  flex-wrap: ${(props) => props.$flexWrap || "no-wrap"};
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.$gap || "1rem"};
-  flex: ${(props) => props.$flex || "1rem"};
+  flex: ${(props) => props.$flex || "1"};
   border-radius: ${(props) => props.$radius || "0"};
+  /* overflow: hidden !important; */
+  /* height: 300px; */
 
   @media (max-width: ${(props) => props.$max || "0"}) {
     display: none;

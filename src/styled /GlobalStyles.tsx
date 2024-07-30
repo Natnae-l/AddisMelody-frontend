@@ -14,7 +14,12 @@ const GlobalStyle = createGlobalStyle`
     align-content: center;
     height: 100vh;
     background-color: #eeeeee;
+    overflow: hidden;
   }
+  table, th, td {
+  border: 1px solid;
+  padding: 5px;
+}
   .pointer:hover {
     cursor: pointer;
   }

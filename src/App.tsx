@@ -11,6 +11,9 @@ import Register from "./components/welcome/Register.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import Home from "./components/home/Home.tsx";
 import Browse from "./components/home/Browse.tsx";
+import AddMusic from "./components/home/AddMusic.tsx";
+import Favourite from "./components/home/Favourite.tsx";
+import Statistics from "./components/home/Statistics.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +25,9 @@ const router = createBrowserRouter(
       <Route path="dashboard" element={<ProtectedRoute />}>
         <Route path="" element={<Home />}>
           <Route index path="" element={<Browse />} />
+          <Route path="favourite" element={<Favourite />} />
+          <Route path="add" element={<AddMusic />} />
+          <Route path="statistics" element={<Statistics />} />
         </Route>
       </Route>
       <Route path="*" element={<div>Requested page unknown</div>} />
