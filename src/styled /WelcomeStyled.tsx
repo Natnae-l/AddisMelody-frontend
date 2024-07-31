@@ -35,13 +35,21 @@ const Container = styled.div<{
   $paddInline?: string;
   $padding?: string;
   $height?: string;
+  $border?: string;
+  $borderRadius?: string;
+  $alignItems?: string;
+  $width?: string;
 }>`
+  width: ${(props) => props.$width || "fit-content"};
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.$gap || "20px"};
   padding: ${(props) => props.$padding || "0"};
   height: ${(props) => props.$height || "100%"};
   overflow-y: ${(props) => (props.$height ? "scroll" : "auto")};
+  align-items: ${(props) => props.$alignItems || "flex-start"};
+  border: ${(props) => props.$border || "none"};
+  border-radius: ${(props) => props.$borderRadius || "0"};
   @media (max-width: 900px) {
     /* width: 100vw !important; */
   }

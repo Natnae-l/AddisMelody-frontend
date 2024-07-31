@@ -4,6 +4,7 @@ import { Form } from "react-router-dom";
 import { Container } from "../../styled /WelcomeStyled";
 import { Paragraph, Input, Button } from "../../styled /Text";
 import { MainDiv } from "../../styled /Layout";
+import styled from "styled-components";
 
 export interface Song {
   title: string;
@@ -16,6 +17,26 @@ export interface Song {
   banner: File | null;
 }
 
+const HiddenFileInput = styled.input`
+  display: none;
+`;
+
+const CustomFileLabel = styled.label`
+  background-color: #4e504f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+  text-align: center;
+`;
+
+const FileNameDisplay = styled.div`
+  margin-top: 10px;
+  color: black;
+`;
+
 function AddMusic() {
   const titleRef = useRef<HTMLInputElement>(null);
   const artistRef = useRef<HTMLInputElement>(null);
@@ -24,6 +45,8 @@ function AddMusic() {
   const [isPrivate, setIsPrivate] = useState(false);
   const audioRef = useRef<HTMLInputElement>(null);
   const bannerRef = useRef<HTMLInputElement>(null);
+  const [audioFileName, setAudioFileName] = useState("");
+  const [bannerFileName, setBannerFileName] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,6 +68,19 @@ function AddMusic() {
     }
 
     console.log(formData);
+
+    // Handle the form submission here (e.g., send the form data to the server)
+  };
+
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setFileName: React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    if (e.target.files?.[0]) {
+      setFileName(e.target.files[0].name);
+    } else {
+      setFileName("");
+    }
   };
 
   return (
@@ -116,27 +152,39 @@ function AddMusic() {
               </label>
             </div>
           </div>
-          <div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <label htmlFor="audio" style={{ paddingBottom: "4px" }}>
               Audio
             </label>
-            <Input
-              $inputColor="black"
+            <HiddenFileInput
               type="file"
               accept="audio/*"
               ref={audioRef}
+              onChange={(e) => handleFileChange(e, setAudioFileName)}
+              id="audio"
             />
+            <CustomFileLabel htmlFor="audio">Choose Audio File</CustomFileLabel>
+            {audioFileName && (
+              <FileNameDisplay>{audioFileName}</FileNameDisplay>
+            )}
           </div>
-          <div>
+          <div style={{ display: "flex", flexDirection: "column" }}>
             <label htmlFor="banner" style={{ paddingBottom: "4px" }}>
               Banner
             </label>
-            <Input
-              $inputColor="black"
+            <HiddenFileInput
               type="file"
               accept="image/*"
               ref={bannerRef}
+              onChange={(e) => handleFileChange(e, setBannerFileName)}
+              id="banner"
             />
+            <CustomFileLabel htmlFor="banner">
+              Choose Banner Image
+            </CustomFileLabel>
+            {bannerFileName && (
+              <FileNameDisplay>{bannerFileName}</FileNameDisplay>
+            )}
           </div>
           <Button>
             {false ? (

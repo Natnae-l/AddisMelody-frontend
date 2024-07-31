@@ -7,11 +7,14 @@ import rootSaga from "../features/saga/rootSaga";
 import createAccountSlice, {
   CreateAccount,
 } from "../features/createAccountSlice";
-import pageSlice from "../features/pageSlice";
+import pageSlice, { Page } from "../features/pageSlice";
+import musicPlayerSlice, { Player } from "../features/musicPlayerSlice";
 
 export interface RootState {
   auth: Authenticated;
   createAccount: CreateAccount;
+  page: Page;
+  player: Player;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -21,6 +24,7 @@ const store = configureStore({
     page: pageSlice,
     auth: authenticatedSlice,
     createAccount: createAccountSlice,
+    player: musicPlayerSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),

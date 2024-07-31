@@ -68,15 +68,21 @@ const MainDiv = styled.div<{
   $max?: string;
   $fill?: string;
   $flexWrap?: string;
+  $position?: string;
+  $shadow?: string;
+  $height?: string;
 }>`
+  /* position: ; */
+  position: ${(props) => props.$position || "relative"};
   flex-wrap: ${(props) => props.$flexWrap || "no-wrap"};
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.$gap || "1rem"};
   flex: ${(props) => props.$flex || "1"};
+  box-shadow: ${(props) => props.$shadow || "0"};
   border-radius: ${(props) => props.$radius || "0"};
   /* overflow: hidden !important; */
-  /* height: 300px; */
+  height: ${(props) => props.$height || "100%"};
 
   @media (max-width: ${(props) => props.$max || "0"}) {
     display: none;

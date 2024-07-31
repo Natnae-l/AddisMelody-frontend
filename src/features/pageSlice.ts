@@ -1,19 +1,19 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export interface PageChanger {
-  currentPage: "notification" | "user" | "music";
+export interface Page {
+  page: "notification" | "user" | "";
 }
 
-const initialState: PageChanger = {
-  currentPage: "music",
+const initialState: Page = {
+  page: "",
 };
 
 const pageSlice = createSlice({
-  name: "pageChange",
+  name: "page",
   initialState,
   reducers: {
-    changePage: (state: PageChanger, action: PayloadAction<PageChanger>) => {
-      state.currentPage = action.payload.currentPage;
+    changePage: (state: Page, action: PayloadAction<Page>) => {
+      state.page = action.payload.page;
     },
   },
 });

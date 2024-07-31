@@ -5,7 +5,7 @@ import Total from "../card/Total";
 
 function Statistics() {
   return (
-    <MainDiv>
+    <MainDiv $flex={2.2}>
       <HorizontalContainer $flexWrap="wrap">
         <Total title="Total Song" amount={33} />
       </HorizontalContainer>
