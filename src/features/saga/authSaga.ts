@@ -11,7 +11,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 function* tryLogIn(action: PayloadAction<LoginData>) {
   try {
     yield call(() =>
-      axios.put("http://localhost:3000/account/login", {
+      axios.put("https://addismelody-backend.onrender.com/account/login", {
         username: action.payload.username,
         password: action.payload.password,
       })
