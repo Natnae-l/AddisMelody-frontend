@@ -10,7 +10,7 @@ export interface FetchSong {
   page?: number;
 }
 
-interface ResponseData extends Token {
+export interface ResponseData extends Token {
   songs: Song[];
   count: number;
 }
@@ -18,7 +18,6 @@ export const getToken = (state: RootState): Token => state.auth;
 function* tryFetch(action: PayloadAction<FetchSong>) {
   try {
     let token: Token = yield select((state: RootState) => getToken(state));
-    console.log(token);
 
     const response: ResponseData = yield call(
       () =>
@@ -36,7 +35,6 @@ function* tryFetch(action: PayloadAction<FetchSong>) {
           })
           .then((response) => response.data) // Extract the data from the response
     );
-    console.log(response);
 
     yield put(success(response.songs));
     if (response.token && response.refreshToken) {

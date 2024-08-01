@@ -24,9 +24,9 @@ function Musics() {
       title={song.title}
       album={song.album}
       artist={song.artist}
-      favourite={song.favourite}
       audio={song.audio || ""}
       genre={song.genre}
+      _id={song._id}
     />
   ));
   return (

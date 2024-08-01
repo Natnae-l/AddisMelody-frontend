@@ -2,13 +2,23 @@ import { MainDiv } from "../../styled /Layout";
 import { Paragraph } from "../../styled /Text";
 import { DisplayGrid } from "../../styled /WelcomeStyled";
 import Music from "../card/Music";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { ThreeDot } from "react-loading-indicators";
+import { useEffect } from "react";
+import { fetchFavourites } from "../../features/favouriteSlice";
 
 function Favourite() {
-  const musicState = useSelector((state: RootState) => state.songList);
+  const musicState = useSelector((state: RootState) => state.favouriteList);
   const { songs, isLoading, error } = musicState;
+
+  console.log(musicState);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavourites());
+  }, []);
 
   const songRender = songs.map((song) => (
     <Music
@@ -16,9 +26,9 @@ function Favourite() {
       title={song.title}
       album={song.album}
       artist={song.artist}
-      favourite={song.favourite}
       audio={song.audio || ""}
       genre={song.genre}
+      _id={song._id}
     />
   ));
   return (

@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { FetchSong } from "./saga/fetchSongSaga";
 
 export interface Song {
+  _id: string;
   title: string;
   artist: string;
   album: string;
@@ -13,7 +14,7 @@ export interface Song {
     | "R&B (Rhythm and Blues)";
   banner?: string;
   audio?: string;
-  favourite: boolean;
+  favouritedBy?: string[];
 }
 
 export interface AllSong {

@@ -10,6 +10,8 @@ import createAccountSlice, {
 import pageSlice, { Page } from "../features/pageSlice";
 import musicPlayerSlice, { Player } from "../features/musicPlayerSlice";
 import getSongSlice, { AllSong } from "../features/getSongSlice";
+import favouriteSlice from "../features/favouriteSlice";
+import makeFavouriteSlice, { Loading } from "../features/makeFavouriteSlice";
 
 export interface RootState {
   auth: Authenticated;
@@ -17,6 +19,8 @@ export interface RootState {
   page: Page;
   player: Player;
   songList: AllSong;
+  favouriteList: AllSong;
+  makeFavourite: Loading;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -28,6 +32,8 @@ const store = configureStore({
     createAccount: createAccountSlice,
     player: musicPlayerSlice,
     songList: getSongSlice,
+    favouriteList: favouriteSlice,
+    makeFavourite: makeFavouriteSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
