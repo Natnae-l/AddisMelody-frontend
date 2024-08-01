@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { A, Button, Input, Paragraph } from "../../styled /Text";
 import { Container, Div } from "../../styled /WelcomeStyled";
 import { useRef, useState } from "react";
@@ -22,6 +22,9 @@ function Register() {
   let createState = useSelector((state: RootState) => state.createAccount);
   const dispatch = useDispatch();
 
+  if (createState.message != "") {
+    return <Navigate to="/" />;
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

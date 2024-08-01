@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { LoginData, logIn } from "../../features/authenticatedSlice";
 import { ThreeDot } from "react-loading-indicators";
 import { RootState } from "../../app/store";
+import { successful } from "../../features/createAccountSlice";
 
 function Login() {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -16,6 +17,8 @@ function Login() {
   const dispatch = useDispatch();
 
   const [warn, setWarn] = useState(false);
+
+  dispatch(successful({ message: "" }));
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

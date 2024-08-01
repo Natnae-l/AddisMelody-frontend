@@ -83,14 +83,17 @@ const DisplayGrid = styled.div<{
   $gap?: string;
   $justContent?: string;
   $padding?: string;
+  $alignItems?: string;
   $width?: string;
 }>`
   display: flex;
+  align-items: ${(props) => props.$alignItems || "flex-start"};
   gap: 27px;
   flex-wrap: wrap;
   width: ${(props) => props.$width || "100%"};
   padding-bottom: 400px !important;
   max-height: 50vh;
+  justify-content: ${(props) => props.$justContent || "flex-start"};
   /* overflow-y: scroll; */
   @media (max-width: 900px) {
     width: 100% !important;

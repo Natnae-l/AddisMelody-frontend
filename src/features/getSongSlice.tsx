@@ -2,7 +2,6 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { FetchSong } from "./saga/fetchSongSaga";
 
 export interface Song {
-  createdBy: string;
   title: string;
   artist: string;
   album: string;
@@ -17,7 +16,7 @@ export interface Song {
   favourite: boolean;
 }
 
-interface AllSong {
+export interface AllSong {
   isLoading: boolean;
   songs: Song[];
   error: string;
@@ -41,7 +40,8 @@ const SongSlice = createSlice({
       state.songs = action.payload;
     },
     failed: (state: AllSong, action: PayloadAction<string>) => {
-      (state.isLoading = false), (state.error = action.payload);
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });

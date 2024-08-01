@@ -3,7 +3,14 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export interface Authenticated {
   isLoading: boolean;
   authenticated: boolean;
+  token: string;
+  refreshToken: string;
   error: string;
+}
+
+export interface Token {
+  token: string;
+  refreshToken: string;
 }
 
 export interface LoginData {
@@ -14,6 +21,8 @@ export interface LoginData {
 const initialState: Authenticated = {
   isLoading: false,
   authenticated: false,
+  token: "",
+  refreshToken: "",
   error: "",
 };
 
@@ -24,10 +33,12 @@ const loggedInSlice = createSlice({
     logIn: (state: Authenticated, _action: PayloadAction<LoginData>) => {
       state.isLoading = true;
     },
-    loggedIn: (state: Authenticated) => {
+    loggedIn: (state: Authenticated, action: PayloadAction<Token>) => {
       state.authenticated = true;
       state.isLoading = false;
       state.error = "";
+      state.token = action.payload.token;
+      state.refreshToken = action.payload.refreshToken;
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -36,6 +47,8 @@ const loggedInSlice = createSlice({
     logOut: (state: Authenticated) => {
       state.isLoading = false;
       state.authenticated = false;
+      state.refreshToken = "";
+      state.token = "";
     },
   },
 });

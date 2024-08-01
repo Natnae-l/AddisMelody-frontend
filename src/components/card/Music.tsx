@@ -3,18 +3,19 @@ import { Paragraph } from "../../styled /Text";
 import Plus from "../../assets/plus.png";
 import { HorizontalContainer } from "../../styled /WelcomeStyled";
 import Banner from "../../assets/banner.png";
+import { Song } from "../../features/getSongSlice";
 
-function Music() {
+function Music({ banner, title, album, artist }: Song) {
   return (
     <MusicContainer className="pointer box-hover">
       <HorizontalContainer $width="fit-content">
-        <img src={Banner} alt="" width="32px" height="32px" />
+        <img src={banner || Banner} alt="" width="32px" height="32px" />
         <Paragraph $fontWeight={600} $fontSize="1rem">
-          what helsy
+          {title}
         </Paragraph>
       </HorizontalContainer>
-      <Paragraph $fontWeight={300}>halsey</Paragraph>
-      <Paragraph $fontWeight={200}>03:30</Paragraph>
+      <Paragraph $fontWeight={300}>{artist}</Paragraph>
+      <Paragraph $fontWeight={200}>{album}</Paragraph>
       <img
         src={Plus}
         width="14px"
