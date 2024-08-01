@@ -3,13 +3,14 @@ import { Paragraph } from "../../styled /Text";
 import Plus from "../../assets/plus.png";
 import { HorizontalContainer } from "../../styled /WelcomeStyled";
 import Banner from "../../assets/banner.png";
-import { Song } from "../../features/getSongSlice";
 import { useDispatch } from "react-redux";
 import { changeMusic } from "../../features/musicPlayerSlice";
 import Play from "../../assets/play-button.png";
 import { makeFavourite } from "../../features/makeFavouriteSlice";
+import Remove from "../../assets/delete.png";
+import { Page } from "../home/Musics";
 
-function Music({ banner, title, album, artist, audio, _id }: Song) {
+function Music({ banner, title, album, artist, audio, _id, page }: Page) {
   const dispatch = useDispatch();
   return (
     <MusicContainer className=" box-hover">
@@ -37,17 +38,31 @@ function Music({ banner, title, album, artist, audio, _id }: Song) {
             className="pointer"
           />
         )}
-        <img
-          src={Plus}
-          width="14px"
-          height="14px"
-          alt="plus sign"
-          title="add to favourite"
-          className="pointer"
-          onClick={() => {
-            dispatch(makeFavourite({ id: _id }));
-          }}
-        />
+        {page == "songs" ? (
+          <img
+            src={Plus}
+            width="14px"
+            height="14px"
+            alt="plus sign"
+            title="add to favourite"
+            className="pointer"
+            onClick={() => {
+              dispatch(makeFavourite({ id: _id }));
+            }}
+          />
+        ) : (
+          <img
+            src={Remove}
+            width="18px"
+            height="18px"
+            alt="plus sign"
+            title="remove songs"
+            className="pointer"
+            onClick={() => {
+              dispatch(makeFavourite({ id: _id }));
+            }}
+          />
+        )}
       </HorizontalContainer>
     </MusicContainer>
   );

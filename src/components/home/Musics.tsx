@@ -6,7 +6,11 @@ import Music from "../card/Music";
 import { RootState } from "../../app/store";
 import { ThreeDot } from "react-loading-indicators";
 import { useEffect } from "react";
-import { fetchSongs } from "../../features/getSongSlice";
+import { Song, fetchSongs } from "../../features/getSongSlice";
+
+export interface Page extends Song {
+  page: "songs" | "favourite";
+}
 
 function Musics() {
   const musicState = useSelector((state: RootState) => state.songList);
@@ -27,6 +31,7 @@ function Musics() {
       audio={song.audio || ""}
       genre={song.genre}
       _id={song._id}
+      page="songs"
     />
   ));
   return (

@@ -29,6 +29,7 @@ function Favourite() {
       audio={song.audio || ""}
       genre={song.genre}
       _id={song._id}
+      page="favourite"
     />
   ));
   return (

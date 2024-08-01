@@ -5,7 +5,6 @@ import notificatioIcon from "../../assets/bell.png";
 import userIcon from "../../assets/user.png";
 import Speakers from "../../assets/live-music.png";
 import { useLocation } from "react-router-dom";
-import Search from "./Search";
 import { useDispatch } from "react-redux";
 import { changePage } from "../../features/pageSlice";
 
@@ -23,7 +22,6 @@ function Header() {
             {breadCrumb}
           </Paragraph>
         </HorizontalContainer>
-        <Search />
         <HorizontalContainer $justContent="flex-end" $gap="20px">
           <img
             src={Speakers}
