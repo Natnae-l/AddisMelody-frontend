@@ -1,6 +1,6 @@
 import { MusicContainer } from "../../styled /MusicCard";
 import { Paragraph } from "../../styled /Text";
-import Plus from "../../assets/plus.png";
+import Fav from "../../assets/star (2).png";
 import { HorizontalContainer } from "../../styled /WelcomeStyled";
 import Banner from "../../assets/banner.png";
 import { useDispatch } from "react-redux";
@@ -40,9 +40,9 @@ function Music({ banner, title, album, artist, audio, _id, page }: Page) {
         )}
         {page == "songs" ? (
           <img
-            src={Plus}
-            width="14px"
-            height="14px"
+            src={Fav}
+            width="26px"
+            height="26px"
             alt="plus sign"
             title="add to favourite"
             className="pointer"
