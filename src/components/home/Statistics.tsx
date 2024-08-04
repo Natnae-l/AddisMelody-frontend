@@ -1,11 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { MainDiv } from "../../styled /Layout";
 import { Paragraph } from "../../styled /Text";
 import { HorizontalContainer } from "../../styled /WelcomeStyled";
 import Total from "../card/Total";
 import styled from "styled-components";
-import { useEffect } from "react";
-import { getStatstics } from "../../features/statisticsSlice";
 import { RootState } from "../../app/store";
 import { ThreeDot } from "react-loading-indicators";
 
@@ -46,13 +44,7 @@ const SectionTitle = styled(Paragraph)`
 `;
 
 function Statistics() {
-  const dispatch = useDispatch();
-
   const statisticsState = useSelector((state: RootState) => state.statistics);
-
-  useEffect(() => {
-    dispatch(getStatstics());
-  }, []);
 
   console.log(statisticsState);
 

@@ -15,6 +15,18 @@ function Header() {
   const breadCrumb = location.slice(1).replace("/", " > ");
 
   const page = useSelector((state: RootState) => state.page);
+  const notificationState = useSelector(
+    (state: RootState) => state.notification
+  );
+
+  const unreadCount = notificationState.notifications.reduce(
+    (init: number, item) => {
+      console.log(item.read);
+
+      return item.read ? init : init + 1;
+    },
+    0
+  );
 
   const { profilePicture } = useSelector(
     (state: RootState) => state.getUserProfile
@@ -37,18 +49,22 @@ function Header() {
             height="25px"
             onClick={() => dispatch(changePage({ page: "" }))}
           />
-          <img
-            src={notificatioIcon}
-            className="pointer"
-            width="25px"
-            height="25px"
-            alt=""
-            onClick={() =>
-              page.page == "notification"
-                ? dispatch(changePage({ page: "" }))
-                : dispatch(changePage({ page: "notification" }))
-            }
-          />
+          <div className="notification-container">
+            <p className="notification-text">
+              {unreadCount ? unreadCount : null}
+            </p>
+            <img
+              src={notificatioIcon}
+              className="notification-icon"
+              alt=""
+              onClick={() =>
+                page.page === "notification"
+                  ? dispatch(changePage({ page: "" }))
+                  : dispatch(changePage({ page: "notification" }))
+              }
+            />
+          </div>
+
           <img
             src={
               profilePicture && profilePicture != "" ? profilePicture : userIcon

@@ -5,7 +5,7 @@ import styled from "styled-components";
 interface Notification {
   title: string;
   body: string;
-  time: string;
+  time: number;
 }
 
 const StyledContainer = styled(Container)`

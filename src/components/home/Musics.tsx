@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { MainDiv } from "../../styled /Layout";
 import { Paragraph } from "../../styled /Text";
 import { DisplayGrid, HorizontalContainer } from "../../styled /WelcomeStyled";
 import Music from "../card/Music";
 import { RootState } from "../../app/store";
 import { ThreeDot } from "react-loading-indicators";
-import { useEffect } from "react";
-import { Song, fetchSongs } from "../../features/getSongSlice";
+import { Song } from "../../features/getSongSlice";
 
 export interface Page extends Song {
   page: "songs" | "favourite";
@@ -15,12 +14,6 @@ export interface Page extends Song {
 function Musics() {
   const musicState = useSelector((state: RootState) => state.songList);
   const { songs, isLoading, error } = musicState;
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchSongs({}));
-  }, []);
 
   const songRender = songs.map((song) => (
     <Music

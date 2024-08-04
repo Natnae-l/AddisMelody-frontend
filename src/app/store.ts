@@ -18,6 +18,9 @@ import getUserProfileSlice, {
   UserProfile,
 } from "../features/getUserProfileSlice";
 import statisticsSlice, { StatisticsState } from "../features/statisticsSlice";
+import notificationSlice, {
+  NotificationState,
+} from "../features/notificationSlice";
 
 export interface RootState {
   auth: Authenticated;
@@ -31,6 +34,7 @@ export interface RootState {
   profileUpdate: ProfileUpdate;
   getUserProfile: UserProfile;
   statistics: StatisticsState;
+  notification: NotificationState;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -48,6 +52,7 @@ const store = configureStore({
     profileUpdate: userProfileSlice,
     getUserProfile: getUserProfileSlice,
     statistics: statisticsSlice,
+    notification: notificationSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),

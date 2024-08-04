@@ -5,6 +5,7 @@ import fetchSong from "./fetchSongSaga";
 import fetchFavourite from "./fetchFavourite";
 import setFavourite from "./makeFavourite";
 import getStatistics from "./statistics";
+import getNotification from "./notificationSaga";
 
 function* rootSaga() {
   yield all([
@@ -14,6 +15,7 @@ function* rootSaga() {
     fork(fetchFavourite),
     fork(setFavourite),
     fork(getStatistics),
+    fork(getNotification),
   ]);
 }
 

@@ -20,6 +20,28 @@ const GlobalStyle = createGlobalStyle`
   border: 1px solid;
   padding: 5px;
 }
+.notification-container {
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.notification-text {
+  color: #59438a;
+  position: relative;
+  top: -8px;
+  right: -90%;
+  z-index: 400;
+  font-weight: 600;
+}
+
+.notification-icon {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin-left: 10px; /* Adjust as necessary for spacing */
+}
+
   .pointer:hover {
     cursor: pointer;
   }
