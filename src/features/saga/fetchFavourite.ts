@@ -11,7 +11,7 @@ function* tryFetch() {
 
     const response: AxiosResponse = yield call(() =>
       axios
-        .get(`http://localhost:3000/songs/favourites`, {
+        .get(`https://addismelody-backend.onrender.com/songs/favourites`, {
           withCredentials: true,
           headers: {
             Accept: "application/json",
