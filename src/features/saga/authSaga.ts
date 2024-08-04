@@ -1,6 +1,11 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
-import { LoginData, logIn, loginFailure } from "../authenticatedSlice";
+import {
+  LoginData,
+  logIn,
+  loggedIn,
+  loginFailure,
+} from "../authenticatedSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 function* tryLogIn(action: PayloadAction<LoginData>) {
@@ -15,6 +20,8 @@ function* tryLogIn(action: PayloadAction<LoginData>) {
         { withCredentials: true }
       )
     );
+
+    yield put(loggedIn());
   } catch (error: any) {
     yield put(loginFailure(error.response.data.error));
   }
