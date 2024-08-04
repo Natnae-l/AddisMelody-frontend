@@ -16,7 +16,7 @@ function* tryFetch() {
 
     const response: StatisticsState = yield call(() =>
       axios
-        .get(`http://localhost:3000/songs/statistics`, {
+        .get(`https://addismelody-backend.onrender.com/songs/statistics`, {
           withCredentials: true,
           headers: {
             Accept: "application/json",

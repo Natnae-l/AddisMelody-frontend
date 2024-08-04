@@ -92,7 +92,7 @@ const AddMusic = () => {
       dispatch(addSong());
 
       const response: AxiosResponse = await axios.post(
-        "http://localhost:3000/songs",
+        "https://addismelody-backend.onrender.com/songs",
         formData,
         {
           headers: {

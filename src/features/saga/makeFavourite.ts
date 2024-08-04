@@ -24,7 +24,7 @@ function* tryMake(action: PayloadAction<MakeFavouritePayload>) {
       () =>
         axios
           .patch(
-            `http://localhost:3000/songs/favourite/${action.payload.id}`,
+            `https://addismelody-backend.onrender.com/songs/favourite/${action.payload.id}`,
             {},
             {
               withCredentials: true, // Include credentials in the request

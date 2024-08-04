@@ -13,7 +13,7 @@ function* tryLogIn(action: PayloadAction<LoginData>) {
   try {
     let response: AxiosResponse = yield call(() =>
       axios.put(
-        "http://localhost:3000/account/login",
+        "https://addismelody-backend.onrender.com",
         {
           username: action.payload.username,
           password: action.payload.password,

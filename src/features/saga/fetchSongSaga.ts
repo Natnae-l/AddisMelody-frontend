@@ -22,7 +22,7 @@ function* tryFetch(action: PayloadAction<FetchSong>) {
     const response: ResponseData = yield call(
       () =>
         axios
-          .get(`http://localhost:3000/songs/list`, {
+          .get(`https://addismelody-backend.onrender.com/songs/list`, {
             params: {
               page: action.payload.page || 0,
               genre: action.payload.genre,

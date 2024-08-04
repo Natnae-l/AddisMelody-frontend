@@ -65,7 +65,7 @@ function UserProfile() {
       dispatch(update());
 
       const response: AxiosResponse = await axios.patch(
-        "http://localhost:3000/account/update",
+        "https://addismelody-backend.onrender.com/account/update",
         formData,
         {
           headers: {
