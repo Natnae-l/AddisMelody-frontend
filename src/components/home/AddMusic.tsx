@@ -12,7 +12,7 @@ import {
   removeMessage,
   success,
 } from "../../features/AddSong";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { RootState } from "../../app/store";
 import { loggedIn } from "../../features/authenticatedSlice";
 
@@ -91,7 +91,7 @@ const AddMusic = () => {
     try {
       dispatch(addSong());
 
-      const response: AxiosResponse = await axios.post(
+      await axios.post(
         "https://addismelody-backend.onrender.com/songs",
         formData,
         {
@@ -102,19 +102,9 @@ const AddMusic = () => {
         }
       );
 
-      const { token, refreshToken } = response.data;
-
-      if (token && refreshToken) {
-        dispatch(loggedIn({ token, refreshToken }));
-      }
-
       dispatch(success());
     } catch (error: any) {
-      const { token, refreshToken } = error.response.data;
-
-      if (token && refreshToken) {
-        dispatch(loggedIn({ token, refreshToken }));
-      }
+      dispatch(loggedIn());
       dispatch(failed(error.response.data.message || "Something went wrong"));
     }
   };

@@ -14,7 +14,6 @@ import {
 } from "../../features/userProfileSlice";
 import axios, { AxiosResponse } from "axios";
 import { RootState } from "../../app/store";
-import { loggedIn } from "../../features/authenticatedSlice";
 import { changeProfile } from "../../features/getUserProfileSlice";
 
 // Styled components
@@ -75,7 +74,6 @@ function UserProfile() {
         }
       );
 
-      const { token, refreshToken } = response.data;
       dispatch(success());
       dispatch(
         changeProfile({
@@ -83,16 +81,7 @@ function UserProfile() {
           profilePicture: response.data.data.profilePicture || "",
         })
       );
-
-      if (token && refreshToken) {
-        dispatch(loggedIn({ token, refreshToken }));
-      }
     } catch (error: any) {
-      const { token, refreshToken } = error.response.data;
-
-      if (token && refreshToken) {
-        dispatch(loggedIn({ token, refreshToken }));
-      }
       dispatch(failed(error.response.data.message || "Something went wrong"));
     }
   };
