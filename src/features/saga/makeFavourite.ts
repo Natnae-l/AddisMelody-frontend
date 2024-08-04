@@ -5,9 +5,7 @@ import {
   failed,
   makeFavourite,
 } from "../makeFavouriteSlice";
-import { Token, loggedIn } from "../authenticatedSlice";
 import { RootState } from "../../app/store";
-import { getToken } from "./fetchSongSaga";
 import axios from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AllSong, Song } from "../getSongSlice";
@@ -15,26 +13,23 @@ import { success } from "../favouriteSlice";
 
 function* tryMake(action: PayloadAction<MakeFavouritePayload>) {
   try {
-    let token: Token = yield select((state: RootState) => getToken(state));
     let favourites: AllSong = yield select((state: RootState) =>
       getFavourites(state)
     );
 
-    const response: Token = yield call(
-      () =>
-        axios
-          .patch(
-            `https://addismelody-backend.onrender.com/songs/favourite/${action.payload.id}`,
-            {},
-            {
-              withCredentials: true, // Include credentials in the request
-              headers: {
-                Accept: "application/json",
-                Authorization: `Bearer ${JSON.stringify(token)}`, // Pass token without stringifying
-              },
-            }
-          )
-          .then((response) => response.data) // Extract the data from the response
+    yield call(() =>
+      axios
+        .patch(
+          `https://addismelody-backend.onrender.com/songs/favourite/${action.payload.id}`,
+          {},
+          {
+            withCredentials: true,
+            headers: {
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((response) => response.data)
     );
 
     yield put(done());
@@ -50,24 +45,10 @@ function* tryMake(action: PayloadAction<MakeFavouritePayload>) {
     if (data) {
       yield put(success(data));
     }
-
-    if (response.token && response.refreshToken) {
-      yield put(
-        loggedIn({ token: response.token, refreshToken: response.refreshToken })
-      );
-    }
   } catch (error: any) {
     console.log(error);
 
     yield put(failed());
-    if (error.response.data.token && error.response.data.refreshToken) {
-      yield put(
-        loggedIn({
-          token: error.response.data.token,
-          refreshToken: error.response.data.refreshToken,
-        })
-      );
-    }
   }
 }
 
