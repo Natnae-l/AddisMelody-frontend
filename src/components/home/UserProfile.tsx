@@ -71,6 +71,7 @@ function UserProfile() {
           headers: {
             Authorization: `Bearer ${JSON.stringify(tokenState)}`,
           },
+          withCredentials: true,
         }
       );
 
