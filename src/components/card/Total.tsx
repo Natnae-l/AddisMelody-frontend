@@ -9,10 +9,10 @@ interface Total {
 function Total({ title, amount }: Total) {
   return (
     <HorizontalContainer $gap="10px" $width="fit-content" $padding="10px">
-      <Paragraph $fontSize="1.4rem" $fontWeight={400}>
+      <Paragraph $fontSize="1.1rem" $fontWeight={400}>
         {title}
       </Paragraph>
-      <Paragraph $fontSize="1.4rem" $fontWeight={300}>
+      <Paragraph $fontSize="1.1rem" $fontWeight={300}>
         {amount}
       </Paragraph>
     </HorizontalContainer>

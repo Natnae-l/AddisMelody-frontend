@@ -5,13 +5,18 @@ import notificatioIcon from "../../assets/bell.png";
 import userIcon from "../../assets/user.png";
 import Speakers from "../../assets/live-music.png";
 import { useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changePage } from "../../features/pageSlice";
+import { RootState } from "../../app/store";
 
 function Header() {
   const dispatch = useDispatch();
   const location = useLocation().pathname;
   const breadCrumb = location.slice(1).replace("/", " > ");
+
+  const { profilePicture } = useSelector(
+    (state: RootState) => state.getUserProfile
+  );
 
   return (
     <StyledNav $padding="20px 40px" $noneWidth="0">
@@ -39,7 +44,9 @@ function Header() {
             onClick={() => dispatch(changePage({ page: "notification" }))}
           />
           <img
-            src={userIcon}
+            src={
+              profilePicture && profilePicture != "" ? profilePicture : userIcon
+            }
             className="pointer"
             width="30px"
             alt=""

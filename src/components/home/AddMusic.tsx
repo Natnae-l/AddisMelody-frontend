@@ -1,10 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ThreeDot } from "react-loading-indicators";
 import { Form } from "react-router-dom";
-import { Container } from "../../styled /WelcomeStyled";
+import { DisplayGrid } from "../../styled /WelcomeStyled";
 import { Paragraph, Input, Button } from "../../styled /Text";
 import { MainDiv } from "../../styled /Layout";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addSong,
+  failed,
+  removeMessage,
+  success,
+} from "../../features/AddSong";
+import axios, { AxiosResponse } from "axios";
+import { RootState } from "../../app/store";
+import { loggedIn } from "../../features/authenticatedSlice";
 
 export interface Song {
   title: string;
@@ -13,8 +23,8 @@ export interface Song {
   genre: string;
   favourite: boolean;
   private: boolean;
-  audio: File | null;
-  banner: File | null;
+  audio?: File | null;
+  banner?: File | null;
 }
 
 const HiddenFileInput = styled.input`
@@ -37,26 +47,37 @@ const FileNameDisplay = styled.div`
   color: black;
 `;
 
-function AddMusic() {
+const genres = [
+  "Pop",
+  "Hip-Hop/Rap",
+  "Rock",
+  "Electronic Dance Music (EDM)",
+  "R&B (Rhythm and Blues)",
+];
+
+const AddMusic = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const artistRef = useRef<HTMLInputElement>(null);
   const albumRef = useRef<HTMLInputElement>(null);
-  const genreRef = useRef<HTMLInputElement>(null);
+  const genreRef = useRef<HTMLSelectElement>(null); // Changed to HTMLSelectElement
   const [isPrivate, setIsPrivate] = useState(false);
   const audioRef = useRef<HTMLInputElement>(null);
   const bannerRef = useRef<HTMLInputElement>(null);
   const [audioFileName, setAudioFileName] = useState("");
   const [bannerFileName, setBannerFileName] = useState("");
+  const dispatch = useDispatch();
+  const tokenState = useSelector((state: RootState) => state.auth);
+  const addMusicState = useSelector((state: RootState) => state.addSong);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData();
+    let formData = new FormData();
 
     formData.append("title", titleRef.current?.value || "");
     formData.append("artist", artistRef.current?.value || "");
     formData.append("album", albumRef.current?.value || "");
-    formData.append("genre", genreRef.current?.value || "");
+    formData.append("genre", genreRef.current?.value || ""); // Updated to get value from select
     formData.append("favourite", "false");
     formData.append("private", String(isPrivate));
 
@@ -67,9 +88,34 @@ function AddMusic() {
       formData.append("banner", bannerRef.current.files[0]);
     }
 
-    console.log(formData);
+    try {
+      dispatch(addSong());
 
-    // Handle the form submission here (e.g., send the form data to the server)
+      const response: AxiosResponse = await axios.post(
+        "http://localhost:3000/songs",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.stringify(tokenState)}`,
+          },
+        }
+      );
+
+      const { token, refreshToken } = response.data;
+
+      if (token && refreshToken) {
+        dispatch(loggedIn({ token, refreshToken }));
+      }
+
+      dispatch(success());
+    } catch (error: any) {
+      const { token, refreshToken } = error.response.data;
+
+      if (token && refreshToken) {
+        dispatch(loggedIn({ token, refreshToken }));
+      }
+      dispatch(failed(error.response.data.message || "Something went wrong"));
+    }
   };
 
   const handleFileChange = (
@@ -83,14 +129,28 @@ function AddMusic() {
     }
   };
 
+  useEffect(() => {
+    if (addMusicState.success || addMusicState.error) {
+      setTimeout(() => dispatch(removeMessage()), 6000);
+    }
+  }, [addMusicState.success, addMusicState.error]);
+
   return (
     <MainDiv $flex={2.2} $radius="1.7rem" $fill="700px">
       <Paragraph $fontWeight={400} $fontSize="2rem" $padding="20px 0 0 0">
         Add New Song
       </Paragraph>
 
+      <Paragraph $fontWeight={400} $fontSize="2rem" $padding="20px 0 0 0">
+        {addMusicState.success
+          ? "Song added successfully"
+          : addMusicState.error
+          ? addMusicState.error
+          : ""}
+      </Paragraph>
+
       <Form onSubmit={handleSubmit}>
-        <Container $gap="20px" $padding="20px">
+        <DisplayGrid $gap="20px" $padding="20px">
           <div style={{ display: "flex", flexDirection: "column" }}>
             <label htmlFor="title" style={{ paddingBottom: "4px" }}>
               Title
@@ -125,7 +185,24 @@ function AddMusic() {
             <label htmlFor="genre" style={{ paddingBottom: "4px" }}>
               Genre
             </label>
-            <Input $inputColor="black" placeholder="Genre" ref={genreRef} />
+            <select
+              id="genre"
+              ref={genreRef}
+              style={{
+                padding: "8px",
+                borderRadius: "4px",
+                borderColor: "gray",
+              }}
+            >
+              <option value="" disabled>
+                Select a genre
+              </option>
+              {genres.map((genre) => (
+                <option key={genre} value={genre}>
+                  {genre}
+                </option>
+              ))}
+            </select>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <label htmlFor="private" style={{ paddingBottom: "4px" }}>
@@ -187,16 +264,16 @@ function AddMusic() {
             )}
           </div>
           <Button>
-            {false ? (
+            {addMusicState.isLoading ? (
               <ThreeDot variant="pulsate" color="#4e504f" size="small" />
             ) : (
               "Add Song"
             )}
           </Button>
-        </Container>
+        </DisplayGrid>
       </Form>
     </MainDiv>
   );
-}
+};
 
 export default AddMusic;

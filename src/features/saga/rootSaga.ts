@@ -4,6 +4,7 @@ import createAccount from "./createAccountSaga";
 import fetchSong from "./fetchSongSaga";
 import fetchFavourite from "./fetchFavourite";
 import setFavourite from "./makeFavourite";
+import getStatistics from "./statistics";
 
 function* rootSaga() {
   yield all([
@@ -12,6 +13,7 @@ function* rootSaga() {
     fork(fetchSong),
     fork(fetchFavourite),
     fork(setFavourite),
+    fork(getStatistics),
   ]);
 }
 

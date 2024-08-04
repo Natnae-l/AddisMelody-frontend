@@ -1,8 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
 import { MainDiv } from "../../styled /Layout";
 import { Paragraph } from "../../styled /Text";
 import { HorizontalContainer } from "../../styled /WelcomeStyled";
 import Total from "../card/Total";
 import styled from "styled-components";
+import { useEffect } from "react";
+import { getStatstics } from "../../features/statisticsSlice";
+import { RootState } from "../../app/store";
+import { ThreeDot } from "react-loading-indicators";
 
 const StyledTable = styled.table`
   width: 100%;
@@ -41,10 +46,48 @@ const SectionTitle = styled(Paragraph)`
 `;
 
 function Statistics() {
-  return (
+  const dispatch = useDispatch();
+
+  const statisticsState = useSelector((state: RootState) => state.statistics);
+
+  useEffect(() => {
+    dispatch(getStatstics());
+  }, []);
+
+  console.log(statisticsState);
+
+  return statisticsState.isLoading ? (
     <MainDiv $flex={2.2}>
+      <div
+        style={{
+          marginBlock: "200px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <ThreeDot />
+      </div>
+    </MainDiv>
+  ) : statisticsState.error && statisticsState.error != "" ? (
+    <MainDiv $flex={2.2}>
+      <div
+        style={{
+          marginBlock: "200px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Paragraph>{statisticsState.error}</Paragraph>
+      </div>
+    </MainDiv>
+  ) : (
+    <MainDiv $flex={2.2}>
+      <h2>My song Stats</h2>
       <HorizontalContainer $flexWrap="wrap">
-        <Total title="Total Song" amount={33} />
+        <Total title="Total Song" amount={statisticsState.totalSongs} />
+        <Total title="Total Albums" amount={statisticsState.totalAlbums} />
+        <Total title="Total Artists" amount={statisticsState.totalArtists} />
+        <Total title="Total Genres" amount={statisticsState.totalGenres} />
       </HorizontalContainer>
 
       <SectionTitle $fontWeight={200} $align="start">
@@ -58,10 +101,14 @@ function Statistics() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Rock</td>
-            <td>5</td>
-          </tr>
+          {statisticsState.genreSongCounts.map((item) => (
+            <>
+              <tr>
+                <td>{item._id}</td>
+                <td>{item.count}</td>
+              </tr>
+            </>
+          ))}
         </tbody>
       </StyledTable>
 
@@ -77,11 +124,13 @@ function Statistics() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Halsey</td>
-            <td>WHTL</td>
-            <td>5</td>
-          </tr>
+          {statisticsState.artistAlbumCounts.map((item) => (
+            <tr>
+              <td>{item._id.artist}</td>
+              <td>{item._id.album}</td>
+              <td>{item.count}</td>
+            </tr>
+          ))}
         </tbody>
       </StyledTable>
 
@@ -96,28 +145,12 @@ function Statistics() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Title</td>
-            <td>12</td>
-          </tr>
-        </tbody>
-      </StyledTable>
-
-      <SectionTitle $fontWeight={200} $align="start">
-        Genre Stats
-      </SectionTitle>
-      <StyledTable>
-        <thead>
-          <tr>
-            <th>Album</th>
-            <th>Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Title</td>
-            <td>12</td>
-          </tr>
+          {statisticsState.albumSongCounts.map((item) => (
+            <tr>
+              <td>{item._id}</td>
+              <td>{item.count}</td>
+            </tr>
+          ))}
         </tbody>
       </StyledTable>
 
@@ -132,10 +165,12 @@ function Statistics() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Title</td>
-            <td>12</td>
-          </tr>
+          {statisticsState.artistSongCounts.map((item) => (
+            <tr>
+              <td>{item._id}</td>
+              <td>{item.count}</td>
+            </tr>
+          ))}
         </tbody>
       </StyledTable>
     </MainDiv>

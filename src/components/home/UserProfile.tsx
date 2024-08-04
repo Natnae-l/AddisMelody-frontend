@@ -1,10 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ThreeDot } from "react-loading-indicators";
 import { Form } from "react-router-dom";
 import { Container } from "../../styled /WelcomeStyled";
 import { Paragraph, Input, Button } from "../../styled /Text";
 import { MainDiv } from "../../styled /Layout";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  failed,
+  removeMessage,
+  success,
+  update,
+} from "../../features/userProfileSlice";
+import axios, { AxiosResponse } from "axios";
+import { RootState } from "../../app/store";
+import { loggedIn } from "../../features/authenticatedSlice";
+import { changeProfile } from "../../features/getUserProfileSlice";
 
 // Styled components
 const HiddenFileInput = styled.input`
@@ -32,6 +43,11 @@ function UserProfile() {
   const passwordRef = useRef<HTMLInputElement>(null);
   const profilePictureRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState("");
+  const tokenState = useSelector((state: RootState) => state.auth);
+  const userProfileState = useSelector(
+    (state: RootState) => state.profileUpdate
+  );
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,9 +61,39 @@ function UserProfile() {
       formData.append("profilePicture", profilePictureRef.current.files[0]);
     }
 
-    console.log(formData);
+    try {
+      dispatch(update());
 
-    // Handle the form submission here (e.g., send the form data to the server)
+      const response: AxiosResponse = await axios.patch(
+        "http://localhost:3000/account/update",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.stringify(tokenState)}`,
+          },
+        }
+      );
+
+      const { token, refreshToken } = response.data;
+      dispatch(success());
+      dispatch(
+        changeProfile({
+          username: response.data.data.profilePicture || "",
+          profilePicture: response.data.data.profilePicture || "",
+        })
+      );
+
+      if (token && refreshToken) {
+        dispatch(loggedIn({ token, refreshToken }));
+      }
+    } catch (error: any) {
+      const { token, refreshToken } = error.response.data;
+
+      if (token && refreshToken) {
+        dispatch(loggedIn({ token, refreshToken }));
+      }
+      dispatch(failed(error.response.data.message || "Something went wrong"));
+    }
   };
 
   const handleFileChange = () => {
@@ -57,11 +103,23 @@ function UserProfile() {
       setFileName("");
     }
   };
+  useEffect(() => {
+    if (userProfileState.success || userProfileState.error) {
+      setTimeout(() => dispatch(removeMessage()), 6000);
+    }
+  }, [userProfileState.success, userProfileState.error]);
 
   return (
     <MainDiv $flex={2.2} $radius="1.7rem" $fill="700px">
       <Paragraph $fontWeight={300} $fontSize="1.5rem" $padding="20px 0 0 0">
         Profile
+      </Paragraph>
+      <Paragraph>
+        {userProfileState.success
+          ? "Profile updated successfully"
+          : userProfileState.error
+          ? userProfileState.error
+          : ""}
       </Paragraph>
 
       <Form onSubmit={handleSubmit}>
@@ -106,7 +164,7 @@ function UserProfile() {
           </div>
 
           <Button>
-            {false ? (
+            {userProfileState.isLoading ? (
               <ThreeDot variant="pulsate" color="#4e504f" size="small" />
             ) : (
               "Update"
