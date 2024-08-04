@@ -3,15 +3,19 @@ import { Paragraph } from "../../styled /Text";
 import Fav from "../../assets/star (2).png";
 import { HorizontalContainer } from "../../styled /WelcomeStyled";
 import Banner from "../../assets/banner.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeMusic } from "../../features/musicPlayerSlice";
 import Play from "../../assets/play-button.png";
 import { makeFavourite } from "../../features/makeFavouriteSlice";
 import Remove from "../../assets/delete.png";
 import { Page } from "../home/Musics";
+import { RootState } from "../../app/store";
+import Playing from "../../assets/sound.png";
 
 function Music({ banner, title, album, artist, audio, _id, page }: Page) {
   const dispatch = useDispatch();
+  const player = useSelector((state: RootState) => state.player);
+
   return (
     <MusicContainer className=" box-hover">
       <HorizontalContainer $width="fit-content">
@@ -24,20 +28,37 @@ function Music({ banner, title, album, artist, audio, _id, page }: Page) {
       <Paragraph $fontWeight={200}>{album}</Paragraph>
       <HorizontalContainer $width="fit-content">
         {" "}
-        {audio && audio != "" && (
-          <img
-            src={Play}
-            width="24px"
-            height="24px"
-            alt="play sign"
-            title="play music"
-            onClick={() =>
-              audio &&
-              dispatch(changeMusic({ music: audio, banner: banner || "" }))
-            }
-            className="pointer"
-          />
-        )}
+        {audio &&
+          audio != "" &&
+          (player._id == _id ? (
+            <img
+              src={Playing}
+              width="34px"
+              height="40px"
+              alt="playing"
+              title="play music"
+              className="pointer"
+            />
+          ) : (
+            <img
+              src={Play}
+              width="24px"
+              height="24px"
+              alt="play sign"
+              title="play music"
+              onClick={() =>
+                audio &&
+                dispatch(
+                  changeMusic({
+                    music: audio,
+                    banner: banner || "",
+                    _id: _id || "",
+                  })
+                )
+              }
+              className="pointer"
+            />
+          ))}
         {page == "songs" ? (
           <img
             src={Fav}

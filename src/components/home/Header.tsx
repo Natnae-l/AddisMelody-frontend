@@ -14,6 +14,8 @@ function Header() {
   const location = useLocation().pathname;
   const breadCrumb = location.slice(1).replace("/", " > ");
 
+  const page = useSelector((state: RootState) => state.page);
+
   const { profilePicture } = useSelector(
     (state: RootState) => state.getUserProfile
   );
@@ -41,7 +43,11 @@ function Header() {
             width="25px"
             height="25px"
             alt=""
-            onClick={() => dispatch(changePage({ page: "notification" }))}
+            onClick={() =>
+              page.page == "notification"
+                ? dispatch(changePage({ page: "" }))
+                : dispatch(changePage({ page: "notification" }))
+            }
           />
           <img
             src={
@@ -50,7 +56,11 @@ function Header() {
             className="pointer"
             width="30px"
             alt=""
-            onClick={() => dispatch(changePage({ page: "user" }))}
+            onClick={() =>
+              page.page == "user"
+                ? dispatch(changePage({ page: "" }))
+                : dispatch(changePage({ page: "user" }))
+            }
           />
         </HorizontalContainer>
       </HorizontalContainer>

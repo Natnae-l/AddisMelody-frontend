@@ -70,11 +70,18 @@ const MainDiv = styled.div<{
   $flexWrap?: string;
   $position?: string;
   $shadow?: string;
+  $margin?: string;
+  $padding?: string;
   $height?: string;
+  $zIndex?: number;
 }>`
   /* position: ; */
+  z-index: ${(props) => props.$zIndex || 0};
   position: ${(props) => props.$position || "relative"};
+  padding: ${(props) => props.$padding || "relative"};
+  margin: ${(props) => props.$margin || "relative"};
   flex-wrap: ${(props) => props.$flexWrap || "no-wrap"};
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: ${(props) => props.$gap || "1rem"};

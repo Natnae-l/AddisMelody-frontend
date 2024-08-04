@@ -39,7 +39,6 @@ const FileNameDisplay = styled.div`
 
 function UserProfile() {
   const usernameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
   const profilePictureRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState("");
   const tokenState = useSelector((state: RootState) => state.auth);
@@ -54,7 +53,6 @@ function UserProfile() {
     const formData = new FormData();
 
     formData.append("username", usernameRef.current?.value || "");
-    formData.append("password", passwordRef.current?.value || "");
 
     if (profilePictureRef.current?.files?.[0]) {
       formData.append("profilePicture", profilePictureRef.current.files[0]);
@@ -102,7 +100,7 @@ function UserProfile() {
   return (
     <MainDiv $flex={2.2} $radius="1.7rem" $fill="700px">
       <Paragraph $fontWeight={300} $fontSize="1.5rem" $padding="20px 0 0 0">
-        Profile
+        Update Profile
       </Paragraph>
       <Paragraph>
         {userProfileState.success
@@ -122,17 +120,6 @@ function UserProfile() {
               $inputColor="black"
               placeholder="Username"
               ref={usernameRef}
-            />
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <label htmlFor="password" style={{ paddingBottom: "4px" }}>
-              Password
-            </label>
-            <Input
-              $inputColor="black"
-              type="password"
-              placeholder="Password"
-              ref={passwordRef}
             />
           </div>
 
