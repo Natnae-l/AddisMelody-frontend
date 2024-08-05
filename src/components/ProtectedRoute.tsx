@@ -23,9 +23,12 @@ const ProtectedRoute = () => {
   }, []);
 
   useEffect(() => {
-    ev = new EventSource("http://localhost:3000/notification", {
-      withCredentials: true,
-    });
+    ev = new EventSource(
+      "https://addismelody-backend.onrender.com/notification",
+      {
+        withCredentials: true,
+      }
+    );
 
     ev.onmessage = (message) => {
       const newMessage = JSON.parse(message.data);
