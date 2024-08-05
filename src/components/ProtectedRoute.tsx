@@ -6,7 +6,7 @@ import {
   getNotifications,
   pushNotification,
 } from "../features/notificationSlice";
-import { fetchSongs, pushSong as pushOnSong } from "../features/getSongSlice";
+import { fetchSongs } from "../features/getSongSlice";
 import { getStatstics, success } from "../features/statisticsSlice";
 import { fetchFavourites } from "../features/favouriteSlice";
 
@@ -31,8 +31,6 @@ const ProtectedRoute = () => {
       console.log(message);
       if (message.type == "notification") {
         dispatch(pushNotification(message.data));
-      } else if (message.type == "songs") {
-        dispatch(pushOnSong(message.data));
       } else if (message.type == "statistics") {
         dispatch(success(message.data));
       }
