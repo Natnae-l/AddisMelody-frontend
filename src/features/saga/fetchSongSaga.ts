@@ -17,12 +17,12 @@ function* tryFetch(action: PayloadAction<FetchSong>) {
     const response: ResponseData = yield call(
       () =>
         axios
-          .get(`https://addismelody-backend.onrender.com/songs/list`, {
+          .get(`http://localhost:3000/songs/list`, {
             params: {
               page: action.payload.page || 0,
               genre: action.payload.genre,
             },
-            withCredentials: true, // Include credentials in the request
+            withCredentials: true,
             headers: {
               Accept: "application/json",
             },

@@ -44,8 +44,11 @@ const SongSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    pushSong: (state: AllSong, action: PayloadAction<Song>) => {
+      state.songs = [action.payload, ...state.songs];
+    },
   },
 });
 
 export default SongSlice.reducer;
-export const { fetchSongs, success, failed } = SongSlice.actions;
+export const { fetchSongs, success, failed, pushSong } = SongSlice.actions;

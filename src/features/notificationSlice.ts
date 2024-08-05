@@ -41,8 +41,17 @@ const notificationSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    pushNotification: (
+      state: NotificationState,
+      action: PayloadAction<Notification>
+    ) => {
+      state.isLoading = false;
+      state.error = "";
+      state.notifications = [action.payload, ...state.notifications];
+    },
   },
 });
 
 export default notificationSlice.reducer;
-export const { getNotifications, success, failed } = notificationSlice.actions;
+export const { getNotifications, success, failed, pushNotification } =
+  notificationSlice.actions;

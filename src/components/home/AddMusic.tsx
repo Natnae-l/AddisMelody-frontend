@@ -15,6 +15,8 @@ import {
 import axios from "axios";
 import { RootState } from "../../app/store";
 import { loggedIn } from "../../features/authenticatedSlice";
+import { Song as SongSliceInterface } from "../../features/getSongSlice";
+import { pushSong } from "../../features/favouriteSlice";
 
 export interface Song {
   title: string;
@@ -91,7 +93,7 @@ const AddMusic = () => {
     try {
       dispatch(addSong());
 
-      await axios.post(
+      const response = await axios.post(
         "https://addismelody-backend.onrender.com/songs",
         formData,
         {
@@ -101,6 +103,9 @@ const AddMusic = () => {
           withCredentials: true,
         }
       );
+      console.log(response.data.data);
+
+      dispatch(pushSong(response.data.data as SongSliceInterface));
 
       dispatch(success());
     } catch (error: any) {

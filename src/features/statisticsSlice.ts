@@ -34,8 +34,6 @@ export interface StatisticsState {
   artistSongCounts: ArtistSongCount[];
   isLoading: boolean;
   error: string | null;
-  token?: string;
-  refreshToken?: string;
 }
 
 const initialState: StatisticsState = {

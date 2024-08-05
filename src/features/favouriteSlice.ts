@@ -22,8 +22,14 @@ const favouriteSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    pushSong: (state: AllSong, action: PayloadAction<Song>) => {
+      console.log(action.payload);
+
+      state.songs = [action.payload, ...state.songs];
+    },
   },
 });
 
 export default favouriteSlice.reducer;
-export const { fetchFavourites, success, failed } = favouriteSlice.actions;
+export const { fetchFavourites, success, failed, pushSong } =
+  favouriteSlice.actions;
