@@ -10,7 +10,7 @@ import axios, { AxiosResponse } from "axios";
 function* tryFetch() {
   try {
     const response: AxiosResponse = yield axios.get(
-      "https://addismelody-backend.onrender.com/notification/list",
+      import.meta.env.VITE_GET_NOTIFICATIONS,
       {
         withCredentials: true,
         headers: {

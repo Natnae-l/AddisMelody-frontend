@@ -7,7 +7,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 function* tryCreateAccount(action: PayloadAction<LoginData>) {
   try {
     const response: AxiosResponse = yield call(() =>
-      axios.post("https://addismelody-backend.onrender.com/account/create", {
+      axios.post(import.meta.env.VITE_CREATE_ACCOUNT, {
         username: action.payload.username,
         password: action.payload.password,
       })

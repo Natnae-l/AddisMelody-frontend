@@ -17,7 +17,7 @@ function* tryFetch(action: PayloadAction<FetchSong>) {
     const response: ResponseData = yield call(
       () =>
         axios
-          .get(`https://addismelody-backend.onrender.com/songs/list`, {
+          .get(import.meta.env.VITE_FETCH_SONGS, {
             params: {
               page: action.payload.page || 0,
               genre: action.payload.genre,

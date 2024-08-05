@@ -91,6 +91,7 @@ function Register() {
               $inputColor="black"
               placeholder="*******"
               ref={confirmPasswordRef}
+              type="password"
             />
           </div>
           <div>
@@ -102,10 +103,16 @@ function Register() {
               $inputColor="black"
               placeholder="*******"
               ref={passwordRef}
+              type="password"
             />
           </div>
-          <div>
-            <Button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Button style={{ width: "200px" }}>
               {" "}
               {createState.isLoading ? (
                 <ThreeDot variant="pulsate" color="#4e504f" size="small" />

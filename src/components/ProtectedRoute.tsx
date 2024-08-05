@@ -23,12 +23,9 @@ const ProtectedRoute = () => {
   }, []);
 
   useEffect(() => {
-    ev = new EventSource(
-      "https://addismelody-backend.onrender.com/notification",
-      {
-        withCredentials: true,
-      }
-    );
+    ev = new EventSource(import.meta.env.VITE_GET_REALTIME, {
+      withCredentials: true,
+    });
 
     ev.onmessage = (message) => {
       const newMessage = JSON.parse(message.data);

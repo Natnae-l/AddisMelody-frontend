@@ -94,7 +94,7 @@ const AddMusic = () => {
       dispatch(addSong());
 
       const response = await axios.post(
-        "https://addismelody-backend.onrender.com/songs",
+        import.meta.env.VITE_ADD_SONG,
         formData,
         {
           headers: {

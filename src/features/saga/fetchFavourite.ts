@@ -6,7 +6,7 @@ function* tryFetch() {
   try {
     const response: AxiosResponse = yield call(() =>
       axios
-        .get(`https://addismelody-backend.onrender.com/songs/favourites`, {
+        .get(import.meta.env.VITE_GET_FAV, {
           withCredentials: true,
           headers: {
             Accept: "application/json",

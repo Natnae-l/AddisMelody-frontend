@@ -8,6 +8,8 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { changePage } from "../../features/pageSlice";
 import { RootState } from "../../app/store";
+import axios from "axios";
+import { readAll } from "../../features/notificationSlice";
 
 function Header() {
   const dispatch = useDispatch();
@@ -27,6 +29,25 @@ function Header() {
     },
     0
   );
+
+  const handleClick = async (notificationId: number) => {
+    try {
+      await axios.patch(
+        import.meta.env.VITE_MARK_READ + `/${notificationId}`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      dispatch(readAll());
+    } catch (error) {
+      console.error("Error marking notification as read:", error);
+    }
+  };
 
   const { profilePicture } = useSelector(
     (state: RootState) => state.getUserProfile
@@ -49,7 +70,10 @@ function Header() {
             height="25px"
             onClick={() => dispatch(changePage({ page: "" }))}
           />
-          <div className="notification-container">
+          <div
+            className="notification-container"
+            onClick={() => handleClick(notificationState.notifications[0].time)}
+          >
             <p className="notification-text">
               {unreadCount ? unreadCount : null}
             </p>

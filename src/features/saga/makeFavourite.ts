@@ -6,21 +6,21 @@ import {
   makeFavourite,
 } from "../makeFavouriteSlice";
 import { RootState } from "../../app/store";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AllSong, Song } from "../getSongSlice";
-import { success } from "../favouriteSlice";
+import { pushSong, success } from "../favouriteSlice";
 
 function* tryMake(action: PayloadAction<MakeFavouritePayload>) {
   try {
-    let favourites: AllSong = yield select((state: RootState) =>
-      getFavourites(state)
+    const favourites: AllSong = yield select(
+      (state: RootState) => state.favouriteList
     );
 
-    yield call(() =>
+    const newData: AxiosResponse = yield call(() =>
       axios
         .patch(
-          `https://addismelody-backend.onrender.com/songs/favourite/${action.payload.id}`,
+          `${import.meta.env.VITE_TOGGLE_FAV}/${action.payload.id}`,
           {},
           {
             withCredentials: true,
@@ -34,21 +34,22 @@ function* tryMake(action: PayloadAction<MakeFavouritePayload>) {
 
     yield put(done());
 
-    let id = action.payload.id;
-    const exists = favourites.songs.findIndex((song) => song._id == id);
+    const id = action.payload.id;
+    const exists = favourites.songs.findIndex((song) => song._id === id);
 
-    if (exists == -1) {
-      alert("song toogled successfully");
+    if (exists === -1) {
+      yield put(pushSong(newData.data));
+      alert("Song toggled successfully");
     }
-    const data = removeExistingSong(id, favourites);
 
-    if (data) {
-      yield put(success(data));
+    const updatedSongs = removeExistingSong(id, favourites);
+
+    if (updatedSongs) {
+      yield put(success(updatedSongs));
     }
   } catch (error: any) {
-    console.log(error);
-
-    yield put(failed());
+    console.error(error);
+    yield put(failed(error.message));
   }
 }
 
@@ -56,13 +57,8 @@ function* setFavourite() {
   yield takeEvery(makeFavourite.type, tryMake);
 }
 
-function removeExistingSong(
-  id: string,
-  favourites: AllSong
-): undefined | Song[] {
-  let favouritesData = favourites.songs.filter((song) => song._id != id);
-
-  return favouritesData;
+function removeExistingSong(id: string, favourites: AllSong): Song[] {
+  return favourites.songs.filter((song) => song._id !== id);
 }
-const getFavourites = (state: RootState): AllSong => state.favouriteList;
+
 export default setFavourite;

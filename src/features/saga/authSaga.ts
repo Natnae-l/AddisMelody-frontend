@@ -12,7 +12,7 @@ function* tryLogIn(action: PayloadAction<LoginData>) {
   try {
     yield call(() =>
       axios.put(
-        "https://addismelody-backend.onrender.com/account/login",
+        import.meta.env.VITE_LOGIN,
         {
           username: action.payload.username,
           password: action.payload.password,

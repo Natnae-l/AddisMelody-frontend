@@ -11,7 +11,7 @@ function* tryFetch() {
   try {
     const response: StatisticsState = yield call(() =>
       axios
-        .get(`https://addismelody-backend.onrender.com/songs/statistics`, {
+        .get(import.meta.env.VITE_GET_STATS, {
           withCredentials: true,
           headers: {
             Accept: "application/json",

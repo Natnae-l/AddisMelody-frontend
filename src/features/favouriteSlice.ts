@@ -11,20 +11,18 @@ const favouriteSlice = createSlice({
   name: "favouriteList",
   initialState,
   reducers: {
-    fetchFavourites: (state: AllSong) => {
+    fetchFavourites: (state) => {
       state.isLoading = true;
     },
-    success: (state: AllSong, action: PayloadAction<Song[]>) => {
+    success: (state, action: PayloadAction<Song[]>) => {
       state.isLoading = false;
       state.songs = action.payload;
     },
-    failed: (state: AllSong, action: PayloadAction<string>) => {
+    failed: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },
-    pushSong: (state: AllSong, action: PayloadAction<Song>) => {
-      console.log(action.payload);
-
+    pushSong: (state, action: PayloadAction<Song>) => {
       state.songs = [action.payload, ...state.songs];
     },
   },

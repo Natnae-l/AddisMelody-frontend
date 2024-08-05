@@ -14,6 +14,7 @@ const StyledContainer = styled(Container)`
   border: 2px solid #c89898;
   border-radius: 10px;
   width: 300px !important;
+  height: fit-content;
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;

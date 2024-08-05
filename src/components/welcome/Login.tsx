@@ -77,6 +77,7 @@ function Login() {
             <Input
               $inputColor="black"
               placeholder="*******"
+              type="password"
               ref={passwordRef}
             />
           </div>
