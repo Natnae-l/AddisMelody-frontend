@@ -23,19 +23,17 @@ const ProtectedRoute = () => {
   }, []);
 
   useEffect(() => {
-    ev = new EventSource(
-      "https://addismelody-backend.onrender.com/notification",
-      {
-        withCredentials: true,
-      }
-    );
+    ev = new EventSource("http://localhost:3000/notification", {
+      withCredentials: true,
+    });
 
     ev.onmessage = (message) => {
-      console.log(message);
-      if (message.type == "notification") {
-        dispatch(pushNotification(message.data));
-      } else if (message.type == "statistics") {
-        dispatch(success(message.data));
+      const newMessage = JSON.parse(message.data);
+      console.log("new message", newMessage);
+      if (newMessage.type == "notification") {
+        dispatch(pushNotification(newMessage.data));
+      } else if (newMessage.type == "statistics") {
+        dispatch(success(newMessage.data));
       }
     };
 
