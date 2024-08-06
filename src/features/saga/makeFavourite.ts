@@ -39,9 +39,6 @@ function* tryMake(action: PayloadAction<MakeFavouritePayload>) {
 
     yield put(pushSong(newData.data as Song));
     if (exists === -1) {
-      console.log("fav", newData.data);
-
-      alert("Song toggled successfully");
     } else {
       const updatedSongs = removeExistingSong(id, favourites);
       if (updatedSongs) {

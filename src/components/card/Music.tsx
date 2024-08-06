@@ -1,6 +1,7 @@
 import { MusicContainer } from "../../styled /MusicCard";
 import { Paragraph } from "../../styled /Text";
 import Fav from "../../assets/star (2).png";
+import FavTwo from "../../assets/star (3).png";
 import { HorizontalContainer } from "../../styled /WelcomeStyled";
 import Banner from "../../assets/banner.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +16,9 @@ import Playing from "../../assets/sound.png";
 function Music({ banner, title, album, artist, audio, _id, page }: Page) {
   const dispatch = useDispatch();
   const player = useSelector((state: RootState) => state.player);
+  const songList = useSelector((state: RootState) => state.favouriteList);
+
+  const allId: string[] = songList.songs.map((item) => item._id);
 
   return (
     <MusicContainer className=" box-hover">
@@ -61,7 +65,7 @@ function Music({ banner, title, album, artist, audio, _id, page }: Page) {
           ))}
         {page == "songs" ? (
           <img
-            src={Fav}
+            src={allId.includes(_id) ? FavTwo : Fav}
             width="26px"
             height="26px"
             alt="plus sign"

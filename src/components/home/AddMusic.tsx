@@ -5,6 +5,7 @@ import { DisplayGrid } from "../../styled /WelcomeStyled";
 import { Paragraph, Input, Button } from "../../styled /Text";
 import { MainDiv } from "../../styled /Layout";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addSong,
@@ -103,7 +104,6 @@ const AddMusic = () => {
           withCredentials: true,
         }
       );
-      console.log(response.data.data);
 
       dispatch(pushSong(response.data.data as SongSliceInterface));
 
@@ -124,6 +124,13 @@ const AddMusic = () => {
       setFileName("");
     }
   };
+  if (addMusicState.success) {
+    Swal.fire({
+      title: "Great!",
+      text: "song added successfully!",
+      icon: "success",
+    });
+  }
 
   useEffect(() => {
     if (addMusicState.success || addMusicState.error) {
@@ -138,11 +145,7 @@ const AddMusic = () => {
       </Paragraph>
 
       <Paragraph $fontWeight={400} $fontSize="2rem" $padding="20px 0 0 0">
-        {addMusicState.success
-          ? "Song added successfully"
-          : addMusicState.error
-          ? addMusicState.error
-          : ""}
+        {addMusicState.error ? addMusicState.error : ""}
       </Paragraph>
 
       <Form onSubmit={handleSubmit}>
