@@ -45,9 +45,8 @@ const Container = styled.div<{
   flex-direction: column;
   gap: ${(props) => props.$gap || "20px"};
   padding: ${(props) => props.$padding || "0"};
-  height: ${(props) => props.$height || "100%"};
-  /* overflow-y: ${(props) =>
-    props.$height ? "scroll" : "auto !important"}; */
+  /* height: ${(props) => props.$height || "100%"};*/
+  overflow-y: ${(props) => (props.$height ? "scroll" : "auto !important")};
   align-items: ${(props) => props.$alignItems || "flex-start"};
   border: ${(props) => props.$border || "none"};
   border-radius: ${(props) => props.$borderRadius || "0"};
