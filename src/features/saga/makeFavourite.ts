@@ -37,15 +37,16 @@ function* tryMake(action: PayloadAction<MakeFavouritePayload>) {
     const id = action.payload.id;
     const exists = favourites.songs.findIndex((song) => song._id === id);
 
+    yield put(pushSong(newData.data as Song));
     if (exists === -1) {
-      yield put(pushSong(newData.data));
+      console.log("fav", newData.data);
+
       alert("Song toggled successfully");
-    }
-
-    const updatedSongs = removeExistingSong(id, favourites);
-
-    if (updatedSongs) {
-      yield put(success(updatedSongs));
+    } else {
+      const updatedSongs = removeExistingSong(id, favourites);
+      if (updatedSongs) {
+        yield put(success(updatedSongs));
+      }
     }
   } catch (error: any) {
     console.error(error);
