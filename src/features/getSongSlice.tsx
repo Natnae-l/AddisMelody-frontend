@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { FetchSong } from "./saga/fetchSongSaga";
 
 export interface Song {
+  createdBy: string;
   _id: string;
   title: string;
   artist: string;

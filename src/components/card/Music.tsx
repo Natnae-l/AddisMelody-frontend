@@ -12,13 +12,27 @@ import Remove from "../../assets/delete.png";
 import { Page } from "../home/Musics";
 import { RootState } from "../../app/store";
 import Playing from "../../assets/sound.png";
+import Update from "../../assets/pen.png";
+import { Link } from "react-router-dom";
 
-function Music({ banner, title, album, artist, audio, _id, page }: Page) {
+function Music({
+  banner,
+  title,
+  album,
+  artist,
+  audio,
+  _id,
+  page,
+  createdBy,
+}: Page) {
   const dispatch = useDispatch();
   const player = useSelector((state: RootState) => state.player);
   const songList = useSelector((state: RootState) => state.favouriteList);
+  const userId = useSelector((state: RootState) => state.auth.userId);
 
   const allId: string[] = songList.songs.map((item) => item._id);
+
+  console.log("bam", createdBy, userId);
 
   return (
     <MusicContainer className=" box-hover">
@@ -30,8 +44,21 @@ function Music({ banner, title, album, artist, audio, _id, page }: Page) {
       </HorizontalContainer>
       <Paragraph $fontWeight={300}>{artist}</Paragraph>
       <Paragraph $fontWeight={200}>{album}</Paragraph>
+
       <HorizontalContainer $width="fit-content">
         {" "}
+        {createdBy == userId ? (
+          <Link state={{ id: _id }} to="/dashboard/update">
+            <img
+              src={Update}
+              alt=""
+              width="20px"
+              height="20px"
+              title="update song"
+              className="pointer"
+            />
+          </Link>
+        ) : null}
         {audio &&
           audio != "" &&
           (player._id == _id ? (

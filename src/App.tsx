@@ -14,6 +14,7 @@ import Browse from "./components/home/Browse.tsx";
 import AddMusic from "./components/home/AddMusic.tsx";
 import Favourite from "./components/home/Favourite.tsx";
 import Statistics from "./components/home/Statistics.tsx";
+import UpdateSong from "./components/home/UpdateSong.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
           <Route path="favourite" element={<Favourite />} />
           <Route path="add" element={<AddMusic />} />
           <Route path="statistics" element={<Statistics />} />
+          <Route path="update" element={<UpdateSong />} />
         </Route>
       </Route>
       <Route path="*" element={<div>Requested page unknown</div>} />

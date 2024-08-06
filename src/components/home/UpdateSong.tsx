@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ThreeDot } from "react-loading-indicators";
-import { Form } from "react-router-dom";
+import { Form, useLocation } from "react-router-dom";
 import { DisplayGrid } from "../../styled /WelcomeStyled";
 import { Paragraph, Input, Button } from "../../styled /Text";
 import { MainDiv } from "../../styled /Layout";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
+import { success as successFav } from "../../features/favouriteSlice";
 import {
   addSong,
   failed,
@@ -15,7 +16,6 @@ import {
 } from "../../features/AddSong";
 import axios from "axios";
 import { RootState } from "../../app/store";
-import { pushSong } from "../../features/favouriteSlice";
 
 export interface Song {
   title: string;
@@ -56,19 +56,33 @@ const genres = [
   "R&B (Rhythm and Blues)",
 ];
 
-const AddMusic = () => {
+const UpdateSong = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const artistRef = useRef<HTMLInputElement>(null);
   const albumRef = useRef<HTMLInputElement>(null);
-  const genreRef = useRef<HTMLSelectElement>(null); // Changed to HTMLSelectElement
+  const genreRef = useRef<HTMLSelectElement>(null);
   const [isPrivate, setIsPrivate] = useState(false);
   const audioRef = useRef<HTMLInputElement>(null);
   const bannerRef = useRef<HTMLInputElement>(null);
   const [audioFileName, setAudioFileName] = useState("");
   const [bannerFileName, setBannerFileName] = useState("");
   const dispatch = useDispatch();
-  const tokenState = useSelector((state: RootState) => state.auth);
   const addMusicState = useSelector((state: RootState) => state.addSong);
+
+  const location = useLocation();
+  const { id } = location.state;
+
+  const favList = useSelector((state: RootState) => state.favouriteList);
+  const toBeUpdated = favList.songs.find((item) => item._id === id);
+
+  useEffect(() => {
+    if (toBeUpdated) {
+      if (titleRef.current) titleRef.current.value = toBeUpdated.title;
+      if (artistRef.current) artistRef.current.value = toBeUpdated.artist;
+      if (albumRef.current) albumRef.current.value = toBeUpdated.album;
+      if (genreRef.current) genreRef.current.value = toBeUpdated.genre;
+    }
+  }, [toBeUpdated]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -78,7 +92,7 @@ const AddMusic = () => {
     formData.append("title", titleRef.current?.value || "");
     formData.append("artist", artistRef.current?.value || "");
     formData.append("album", albumRef.current?.value || "");
-    formData.append("genre", genreRef.current?.value || ""); // Updated to get value from select
+    formData.append("genre", genreRef.current?.value || "");
     formData.append("favourite", "false");
     formData.append("private", String(isPrivate));
 
@@ -92,20 +106,19 @@ const AddMusic = () => {
     try {
       dispatch(addSong());
 
-      const response = await axios.post(
-        import.meta.env.VITE_ADD_SONG,
+      const response = await axios.patch(
+        import.meta.env.VITE_UPDATE_SONG + "/" + id,
         formData,
         {
-          headers: {
-            Authorization: `Bearer ${JSON.stringify(tokenState)}`,
-          },
           withCredentials: true,
         }
       );
-      console.log(response.data.data);
 
-      dispatch(pushSong(response.data.data));
-
+      let updatedFavList = favList.songs.map((item) => {
+        if (item._id == id) return response.data.data;
+        return item;
+      });
+      dispatch(successFav(updatedFavList));
       dispatch(success());
     } catch (error: any) {
       dispatch(failed(error.response.data.message || "Something went wrong"));
@@ -122,10 +135,11 @@ const AddMusic = () => {
       setFileName("");
     }
   };
+
   if (addMusicState.success) {
     Swal.fire({
       title: "Great!",
-      text: "song added successfully!",
+      text: "Song updated successfully!",
       icon: "success",
     });
   }
@@ -134,12 +148,12 @@ const AddMusic = () => {
     if (addMusicState.success || addMusicState.error) {
       setTimeout(() => dispatch(removeMessage()), 6000);
     }
-  }, [addMusicState.success, addMusicState.error]);
+  }, [addMusicState.success, addMusicState.error, dispatch]);
 
   return (
-    <MainDiv $flex={2.2} $radius="1.7rem" $fill="700px">
+    <MainDiv $flex={2} $radius="1.7rem" $fill="700px">
       <Paragraph $fontWeight={400} $fontSize="2rem" $padding="20px 0 0 0">
-        Add New Song
+        Update Song
       </Paragraph>
 
       <Paragraph $fontWeight={400} $fontSize="2rem" $padding="20px 0 0 0">
@@ -211,6 +225,7 @@ const AddMusic = () => {
                   type="radio"
                   name="private"
                   value="true"
+                  checked={isPrivate === true}
                   onChange={() => setIsPrivate(true)}
                 />
                 True
@@ -220,6 +235,7 @@ const AddMusic = () => {
                   type="radio"
                   name="private"
                   value="false"
+                  checked={isPrivate === false}
                   onChange={() => setIsPrivate(false)}
                 />
                 False
@@ -260,17 +276,13 @@ const AddMusic = () => {
               <FileNameDisplay>{bannerFileName}</FileNameDisplay>
             )}
           </div>
-          <Button>
-            {addMusicState.isLoading ? (
-              <ThreeDot variant="pulsate" color="#4e504f" size="small" />
-            ) : (
-              "Add Song"
-            )}
-          </Button>
         </DisplayGrid>
+        <Button style={{ margin: "20px auto" }} type="submit">
+          {addMusicState.isLoading ? <ThreeDot /> : "Update Song"}
+        </Button>
       </Form>
     </MainDiv>
   );
 };
 
-export default AddMusic;
+export default UpdateSong;

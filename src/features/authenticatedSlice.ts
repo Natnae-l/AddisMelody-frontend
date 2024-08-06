@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 export interface Authenticated {
   isLoading: boolean;
   authenticated: boolean;
+  userId: string;
   error: string;
 }
 
@@ -14,6 +15,7 @@ export interface LoginData {
 const initialState: Authenticated = {
   isLoading: false,
   authenticated: false,
+  userId: "",
   error: "",
 };
 
@@ -24,10 +26,11 @@ const loggedInSlice = createSlice({
     logIn: (state: Authenticated, _action: PayloadAction<LoginData>) => {
       state.isLoading = true;
     },
-    loggedIn: (state: Authenticated) => {
+    loggedIn: (state: Authenticated, action: PayloadAction<string>) => {
       state.authenticated = true;
       state.isLoading = false;
       state.error = "";
+      state.userId = action.payload;
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.error = action.payload;

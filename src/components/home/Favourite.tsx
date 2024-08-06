@@ -9,7 +9,7 @@ import { ThreeDot } from "react-loading-indicators";
 function Favourite() {
   const musicState = useSelector((state: RootState) => state.favouriteList);
   const { songs, isLoading, error } = musicState;
-
+  console.log(songs);
   const songRender = songs.map((song) => (
     <Music
       banner={song.banner}
@@ -19,6 +19,7 @@ function Favourite() {
       audio={song.audio || ""}
       genre={song.genre}
       _id={song._id}
+      createdBy={song.createdBy}
       page="favourite"
     />
   ));

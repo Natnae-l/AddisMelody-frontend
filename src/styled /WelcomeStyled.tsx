@@ -75,7 +75,7 @@ const HorizontalContainer = styled.div<{
   gap: ${(props) => props.$gap || "20px"};
   justify-content: ${(props) => props.$justContent || "space-between"};
   width: ${(props) => props.$width || "100%"};
-  align-items: center;
+  align-items: center !important;
   padding: ${(props) => props.$padding || "0"};
   flex-wrap: ${(props) => props.$flexWrap || "no-wrap"};
 `;

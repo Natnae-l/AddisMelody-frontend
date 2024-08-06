@@ -17,13 +17,14 @@ function Musics() {
 
   const songRender = songs.map((song) => (
     <Music
-      banner={song.banner}
       title={song.title}
+      banner={song.banner}
       album={song.album}
       artist={song.artist}
       audio={song.audio || ""}
       genre={song.genre}
       _id={song._id}
+      createdBy={song.createdBy}
       page="songs"
     />
   ));
@@ -57,7 +58,7 @@ function Musics() {
               $align="center !important"
               $color="#c9b7b7"
             >
-              You don't have musics added
+              No songs to explore
             </Paragraph>
           </div>
         ) : (
