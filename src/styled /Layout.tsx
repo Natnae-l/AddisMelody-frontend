@@ -53,7 +53,7 @@ const Main = styled.main`
   flex-direction: column;
   background-color: #ffffff;
   flex: 0.9;
-  border-radius: 1.6rem 0 0 1.5rem;
+  border-radius: 1.6rem 0 0 0rem;
   @media (max-width: 700px) {
     flex: 1;
     border-radius: 0;
