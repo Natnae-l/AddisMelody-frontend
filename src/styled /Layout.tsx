@@ -74,6 +74,7 @@ const MainDiv = styled.div<{
   $padding?: string;
   $height?: string;
   $zIndex?: number;
+  $scroll?: boolean;
 }>`
   /* position: ; */
   z-index: ${(props) => props.$zIndex || 0};
@@ -88,7 +89,7 @@ const MainDiv = styled.div<{
   flex: ${(props) => props.$flex || "1"};
   box-shadow: ${(props) => props.$shadow || "0"};
   border-radius: ${(props) => props.$radius || "0"};
-  /* overflow: hidden !important; */
+  /* overflow: ${(props) => (props.$scroll ? "scroll" : "auto")}; */
   height: ${(props) => props.$height || "100%"};
 
   @media (max-width: ${(props) => props.$max || "0"}) {

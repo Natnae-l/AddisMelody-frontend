@@ -11,10 +11,11 @@ function TopLevel() {
 
   return (
     <div
+      className="not"
       style={{
         position: "fixed",
         borderRadius: "1rem",
-        overflow: "hidden",
+        overflowY: "scroll",
         right: "20px",
         marginBlockStart: "10px",
         boxShadow: currentPage == "" ? "0 0 0 0" : "0px 0px 7px 1px #c4c0c0",

@@ -14,10 +14,11 @@ function Home() {
         <MainContainer $gap="20px" $paddInline=" 0 10px 25px 20px">
           <Outlet />
           <MainDiv
-            $flex={0.8}
+            $flex={0.9}
             $radius="1.7rem !importtant"
-            $padding="0"
+            $padding="0 0 300px 0"
             $max="700px"
+            // $scroll={true}
           >
             <TopLevel />{" "}
           </MainDiv>

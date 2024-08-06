@@ -137,7 +137,9 @@ function UserProfile() {
             <CustomFileLabel htmlFor="profilePicture">
               Choose File
             </CustomFileLabel>
-            {fileName && <FileNameDisplay>{fileName}</FileNameDisplay>}
+            <p className="one-line">
+              {fileName && <FileNameDisplay>{fileName}</FileNameDisplay>}
+            </p>
           </div>
 
           <Button>

@@ -1,6 +1,7 @@
 import { Paragraph } from "../../styled /Text";
 import { Container } from "../../styled /WelcomeStyled";
 import styled from "styled-components";
+import moment from "moment";
 
 interface Notification {
   title: string;
@@ -14,7 +15,6 @@ const StyledContainer = styled(Container)`
   border: 2px solid #c89898;
   border-radius: 10px;
   width: 300px !important;
-  height: fit-content;
   background-color: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -32,7 +32,7 @@ const Body = styled(Paragraph)`
 `;
 
 const Time = styled(Paragraph)`
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   font-weight: 400;
   color: #999;
   text-align: right;
@@ -43,7 +43,7 @@ function NotificationCard({ title, body, time }: Notification) {
     <StyledContainer>
       <Title>{title}</Title>
       <Body>{body}</Body>
-      <Time>{time}</Time>
+      <Time>{moment(time).calendar()}</Time>
     </StyledContainer>
   );
 }

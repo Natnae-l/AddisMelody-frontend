@@ -8,6 +8,7 @@ const MusicContainer = styled.div`
   flex-wrap: wrap;
   flex: 0.5;
   min-width: 350px;
+
   box-shadow: 1px 1px 2px 1px #e2e1e1;
   border-radius: 3px;
   @media (max-width: 700px) {
