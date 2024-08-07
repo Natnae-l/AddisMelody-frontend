@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { H2, Li, StyledNav, Ul } from "../../styled /Layout";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../features/authenticatedSlice";
@@ -9,18 +9,59 @@ function Nav() {
     <StyledNav>
       <Ul>
         <H2>Library</H2>
-        <Link to="" style={{ textDecoration: "none" }}>
+        <NavLink
+          to=""
+          style={({}) => {
+            return {
+              textDecoration: "none",
+              boxSizing: "border-box",
+            };
+          }}
+        >
           <Li>Songs</Li>
-        </Link>
-        <Link to="favourite" style={{ textDecoration: "none" }}>
+        </NavLink>
+        <NavLink
+          to="/dashboard/favourite"
+          style={({ isActive }) => {
+            return {
+              textDecoration: "none",
+              background: isActive ? "#494641" : "inherit",
+              padding: isActive ? "10px 15px" : "inherit",
+              borderRadius: isActive ? "10px" : "inherit",
+              boxSizing: "border-box",
+            };
+          }}
+        >
           <Li>Favourite Songs</Li>
-        </Link>
-        <Link to="add" style={{ textDecoration: "none" }}>
+        </NavLink>
+        <NavLink
+          to="add"
+          style={({ isActive }) => {
+            return {
+              textDecoration: "none",
+              background: isActive ? "#494641" : "inherit",
+              padding: isActive ? "10px 15px" : "inherit",
+              borderRadius: isActive ? "10px" : "inherit",
+              boxSizing: "border-box",
+            };
+          }}
+        >
           <Li>Add Song</Li>
-        </Link>
-        <Link to="statistics" style={{ textDecoration: "none" }}>
+        </NavLink>
+        <NavLink
+          to="statistics"
+          style={({ isActive }) => {
+            return {
+              textDecoration: "none",
+              background: isActive ? "#494641" : "inherit",
+              padding: isActive ? "10px 15px" : "inherit",
+              borderRadius: isActive ? "10px" : "inherit",
+              boxSizing: "border-box",
+            };
+          }}
+        >
           <Li>Statistics</Li>
-        </Link>
+        </NavLink>
       </Ul>
       <Ul>
         <Li onClick={() => dispatch(logOut())}>Log Out</Li>

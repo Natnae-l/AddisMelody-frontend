@@ -9,7 +9,6 @@ import { ThreeDot } from "react-loading-indicators";
 function Favourite() {
   const musicState = useSelector((state: RootState) => state.favouriteList);
   const { songs, isLoading, error } = musicState;
-  console.log(songs);
   const songRender = songs.map((song) => (
     <Music
       banner={song.banner}
@@ -39,7 +38,7 @@ function Favourite() {
         $alignItems={isLoading ? "center !important" : "flex-start"}
       >
         {isLoading ? (
-          <div style={{ marginBlock: "100px" }}>
+          <div style={{ margin: "100px 300px" }}>
             <ThreeDot />
           </div>
         ) : error != "" ? (

@@ -41,7 +41,7 @@ function Musics() {
         $alignItems={isLoading ? "center !important" : "flex-start"}
       >
         {isLoading ? (
-          <div style={{ marginBlock: "100px" }}>
+          <div style={{ margin: "100px 300px" }}>
             <ThreeDot />
           </div>
         ) : error != "" ? (
