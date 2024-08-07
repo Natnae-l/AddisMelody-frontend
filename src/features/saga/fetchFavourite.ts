@@ -14,7 +14,6 @@ function* tryFetch() {
         })
         .then((response) => response.data)
     );
-    console.log(response.data);
     yield put(success(response.data));
   } catch (error: any) {
     yield put(failed(error.response.data.error as string));

@@ -23,8 +23,6 @@ function Header() {
 
   const unreadCount = notificationState.notifications.reduce(
     (init: number, item) => {
-      console.log(item.read);
-
       return item.read ? init : init + 1;
     },
     0
