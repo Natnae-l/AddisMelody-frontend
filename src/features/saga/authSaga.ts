@@ -7,6 +7,7 @@ import {
   loginFailure,
 } from "../authenticatedSlice";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { changeProfile } from "../getUserProfileSlice";
 
 function* tryLogIn(action: PayloadAction<LoginData>) {
   try {
@@ -20,7 +21,24 @@ function* tryLogIn(action: PayloadAction<LoginData>) {
         { withCredentials: true }
       )
     );
-    yield put(loggedIn(response.data.userId));
+    console.log({
+      userId: response.data.userId,
+      profilePicture: response.data.profilePicture,
+    });
+
+    yield put(
+      loggedIn({
+        userId: response.data.userId,
+        profilePicture: response.data.profilePicture,
+      })
+    );
+
+    yield put(
+      changeProfile({
+        username: response.data.userId,
+        profilePicture: response.data.profilePicture,
+      })
+    );
   } catch (error: any) {
     yield put(loginFailure(error.response.data.error));
   }

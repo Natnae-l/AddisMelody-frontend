@@ -4,6 +4,7 @@ export interface Authenticated {
   isLoading: boolean;
   authenticated: boolean;
   userId: string;
+  profilePicture: string;
   error: string;
 }
 
@@ -16,8 +17,14 @@ const initialState: Authenticated = {
   isLoading: false,
   authenticated: false,
   userId: "",
+  profilePicture: "",
   error: "",
 };
+
+interface LoginInfo {
+  userId: string;
+  profilePicture: string;
+}
 
 const loggedInSlice = createSlice({
   name: "auth",
@@ -26,11 +33,12 @@ const loggedInSlice = createSlice({
     logIn: (state: Authenticated, _action: PayloadAction<LoginData>) => {
       state.isLoading = true;
     },
-    loggedIn: (state: Authenticated, action: PayloadAction<string>) => {
+    loggedIn: (state: Authenticated, action: PayloadAction<LoginInfo>) => {
       state.authenticated = true;
       state.isLoading = false;
       state.error = "";
-      state.userId = action.payload;
+      state.userId = action.payload.userId;
+      state.profilePicture = action.payload.profilePicture;
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
