@@ -21,10 +21,6 @@ function* tryLogIn(action: PayloadAction<LoginData>) {
         { withCredentials: true }
       )
     );
-    console.log({
-      userId: response.data.userId,
-      profilePicture: response.data.profilePicture,
-    });
 
     yield put(
       loggedIn({
