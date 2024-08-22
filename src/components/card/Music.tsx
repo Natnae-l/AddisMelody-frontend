@@ -32,8 +32,6 @@ function Music({
 
   const allId: string[] = songList.songs.map((item) => item._id);
 
-  console.log("bam", createdBy, userId);
-
   return (
     <MusicContainer className=" box-hover">
       <HorizontalContainer $width="fit-content">
